@@ -1,2 +1,0 @@
-Noted
-untuk pelaksana, bila pelaksana sudah diilih maka pelaksana tidak muncul di list yang tersedia

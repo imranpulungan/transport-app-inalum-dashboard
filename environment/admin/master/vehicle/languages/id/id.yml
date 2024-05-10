@@ -1,0 +1,68 @@
+kendaraan: Daftar Kendaraan
+
+show_kendaraan_col_1: "No"
+show_kendaraan_col_2: Plat Kendaraan
+show_kendaraan_col_3: Management
+show_kendaraan_col_4: Model
+show_kendaraan_col_5: Warna
+show_kendaraan_col_6: Bensin
+show_kendaraan_col_7: Aksi
+
+kendaraan_btn_add: Tambah Kendaraan
+kendaraan_add_modal_title: Tambah Kendaraan
+kendaraan_add_modal_label_plat: Plat Kendaraan
+kendaraan_add_modal_label_plat_plc: Masukkan Plat Kendaraan 
+kendaraan_add_modal_label_plat_error: Plat Kendaraan Wajib Diisi!
+kendaraan_add_modal_label_management: Management
+kendaraan_add_modal_label_management_plc: Masukkan Management 
+kendaraan_add_modal_label_management_error: Model Kendaraan Wajib Diisi!
+kendaraan_add_modal_label_model: Model
+kendaraan_add_modal_label_model_plc: Masukkan Model
+kendaraan_add_modal_label_model_error: Model Kendaraan Wajib Diisi!
+kendaraan_add_modal_label_color: Warna
+kendaraan_add_modal_label_color_plc: Masukkan Warna
+kendaraan_add_modal_label_color_error: Warna Wajib Diisi!
+kendaraan_add_modal_label_bensin: Bensin
+kendaraan_add_modal_label_bensin_plc: Masukkan Bensin
+kendaraan_add_modal_label_bensin_error: Bensin Wajib Diisi!
+
+kendaraan_edit_add: Edit Kendaraan
+kendaraan_edit_modal_title: Edit Kendaraan
+kendaraan_edit_modal_label_plat: Plat Kendaraan
+kendaraan_edit_modal_label_plat_plc: Masukkan Plat Kendaraan 
+kendaraan_edit_modal_label_plat_error: Plat Kendaraan Wajib Diisi!
+kendaraan_edit_modal_label_management: Management
+kendaraan_edit_modal_label_management_plc: Masukkan Management 
+kendaraan_edit_modal_label_management_error: Model Kendaraan Wajib Diisi!
+kendaraan_edit_modal_label_model: Model
+kendaraan_edit_modal_label_model_plc: Masukkan Model
+kendaraan_edit_modal_label_model_error: Model Kendaraan Wajib Diisi!
+kendaraan_edit_modal_label_color: Warna
+kendaraan_edit_modal_label_color_plc: Masukkan Warna
+kendaraan_edit_modal_label_color_error: Warna Wajib Diisi!
+kendaraan_edit_modal_label_color: Bensin
+kendaraan_edit_modal_label_color_plc: Masukkan Bensin
+kendaraan_edit_modal_label_color_error: Bensin Wajib Diisi!
+
+kendaraan_qrcode_display: QR-Code Kendaraan
+kendaraan_qrcode_modal_title: QR-Code Kendaraan
+
+kendaraan_add_success_header: Berhasil
+kendaraan_add_success_message: Berhasil Menambahkan Kendaraan
+kendaraan_add_failed_header: Gagal Menambahkan Kendaraan
+kendaraan_add_failed_message: Data Kendaraan Gagal Ditambahkan.
+
+kendaraan_edit_success_header: Berhasil
+kendaraan_edit_success_message: Berhasil Mengupdate Kendaraan
+kendaraan_edit_failed_header: Gagal Mengupdate Kendaraan
+kendaraan_edit_failed_message: Data Kendaraan Gagal Diupdate.
+
+kendaraan_delete_success_header: Berhasil
+kendaraan_delete_success_message: Berhasil Menghapus Kendaraan
+kendaraan_delete_failed_header: Gagal Menghapus Kendaraan
+kendaraan_delete_failed_message: Kendaraan Gagal Dihapus, Dengan Kemungkinan Bahwa Kendaraan Sudah Terhapus, atau Mungkin Terkait Kendala Koneksi.
+
+user_status_success_header: Berhasil
+user_status_success_message: Berhasil Mengupdate Status User
+user_status_failed_header: Gagal Mengupdate Status User
+user_status_failed_message: Status User Gagal Diupdate, Dengan Kemungkinan Bahwa User Sudah Terhapus, atau Mungkin Terkait Kendala Koneksi.

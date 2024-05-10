@@ -25,7 +25,7 @@ $config['env'] = [
     'minify' => false,
     /** Permission Section */
     'master' => true,
-    'schema' => 'ami',
+    'schema' => 'tapi',
 
     /** Template Section */
     'admin_template'  => 'velzon',
@@ -47,7 +47,7 @@ $config['env'] = [
     /** API Environment */
     'API_HOST' => 'http://localhost/esb-api/',
     'API_TOKEN' => 'dOhAYpyz2gYqpbsulmeehAwyNaB1xfedrdlrV1fHefeIwuc7kM0bPtdgcQG2kfk3q',
-    'API_APP_KEY' => 'a643fc6e-c929-551c-b1ee-6980df714997',
+    'API_APP_KEY' => '7f306337-41fb-52d1-8169-b799d04045f7',
     'API_USERNAME' => '',
     'API_PASSWORD' => ''
 ];

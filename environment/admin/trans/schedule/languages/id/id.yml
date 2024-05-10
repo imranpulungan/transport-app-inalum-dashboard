@@ -1,0 +1,78 @@
+schedule: Jadwal Keberangkatan
+
+show_schedule_col_1: "No"
+show_schedule_col_2: Kode Jadwal
+show_schedule_col_3: Jenis Jadwal
+show_schedule_col_4: Berangkat
+show_schedule_col_5: Tujuan
+show_schedule_col_6: Waktu Keberangkatan
+show_schedule_col_7: Status
+
+schedule_btn_add: Tambah Jadwal Keberangkatan
+schedule_btn_edit: Edit Jadwal Keberangkatan
+schedule_add_modal_title: Tambah Jadwal Keberangkatan
+schedule_edit_modal_title: Tambah Jadwal Keberangkatan
+schedule_add_modal_label_number: Kode Jadwal
+schedule_add_modal_label_number_plc: Masukkan Kode Jadwal
+schedule_add_modal_label_number_error: Kode Jadwal Wajib Diisi!
+schedule_add_modal_label_type: Jenis Jadwal
+schedule_add_modal_label_type_plc: Masukkan Jenis Jadwal
+schedule_add_modal_label_type_error: Jenis Jadwal Wajib Diisi!
+schedule_add_modal_label_departure: Lokasi Keberangkatan
+schedule_add_modal_label_departure_plc: Masukkan Lokasi Keberangkatan
+schedule_add_modal_label_departure_error: Lokasi Keberangkatan Wajib Diisi!
+schedule_add_modal_label_arrival: Lokasi Tujuan
+schedule_add_modal_label_arrival_plc: Masukkan Lokasi Tujuan
+schedule_add_modal_label_arrival_error: Lokasi Tujuan Wajib Diisi!
+schedule_add_modal_label_departure_date: Tanggal Berangkat
+schedule_add_modal_label_departure_date_plc: Masukkan Tanggal Berangkat
+schedule_add_modal_label_departure_date_error: Bidang isian Tanggal Berangkat Wajib diisi!
+schedule_add_modal_label_departure_day: Hari Berangkat
+schedule_add_modal_label_departure_day_plc: Masukkan Hari Berangkat
+schedule_add_modal_label_departure_day_error: Bidang pilihan Hari Berangkat Wajib diisi!
+schedule_add_modal_label_departure_time: Jam Berangkat
+schedule_add_modal_label_departure_time_plc: Masukkan Jam Berangkat
+schedule_add_modal_label_departure_time_error: Bidang isian Jam Berangkat Wajib diisi!
+schedule_add_modal_label_arrival_date: Tanggal Tiba
+schedule_add_modal_label_arrival_date_plc: Masukkan Tanggal Tiba
+schedule_add_modal_label_arrival_date_error: Bidang isian Tanggal Tiba Wajib diisi!
+schedule_add_modal_label_arrival_day: Hari Tiba
+schedule_add_modal_label_arrival_day_plc: Masukkan Hari Tiba
+schedule_add_modal_label_arrival_day_error: Bidang pilihan Hari Tiba Wajib diisi!
+schedule_add_modal_label_arrival_time: Jam Tiba
+schedule_add_modal_label_arrival_time_plc: Masukkan Jam Tiba
+schedule_add_modal_label_arrival_time_error: Bidang isian Jam Tiba Wajib diisi!
+
+schedule_info_modal_title: Detail Jadwal Keberangkatan
+schedule_info_modal_label_nomor_izin: Nomor Izin (optional)
+schedule_info_modal_label_nomor_izin_plc: Masukkan Nomor Izin
+schedule_info_modal_label_nomor_izin_error: Nomor Izin Wajib Diisi!
+schedule_info_modal_label_masa_berlaku: Masa Berlaku Izin
+schedule_info_modal_label_tgl_berlaku: Tanggal
+schedule_info_modal_label_tgl_berlaku_plc: Masukkan Tanggal
+schedule_info_modal_label_tgl_berlaku_error: Tanggal Wajib Diisi!
+schedule_info_modal_label_jam_berlaku: Jam
+schedule_info_modal_label_jam_berlaku_plc: Masukkan Jam
+schedule_info_modal_label_jam_berlaku_error: Jam Wajib Diisi dengan Lengkap!
+
+schedule_verifikasi_error: Wajib Verifikasi!
+
+schedule_add_success_header: Berhasil
+schedule_add_success_message: Berhasil Menyimpan Jadwal Keberangkatan
+schedule_add_failed_header: Gagal Menyimpan Jadwal Keberangkatan
+schedule_add_failed_message: Data Jadwal Keberangkatan Gagal Disimpan.
+
+schedule_edit_success_header: Berhasil
+schedule_edit_success_message: Berhasil Mengupdate Jadwal Keberangkatan
+schedule_edit_failed_header: Gagal Mengupdate Jadwal Keberangkatan
+schedule_edit_failed_message: Data Jadwal Keberangkatan Gagal Diupdate.
+
+schedule_verifikasi_success_header: Berhasil
+schedule_verifikasi_success_message: Berhasil Verifikasi Keberangkatan
+schedule_verifikasi_failed_header: Gagal Verifikasi Keberangkatan
+schedule_verifikasi_failed_message: Data Keberangkatan Gagal Diverifikasi.
+
+schedule_delete_success_header: Berhasil
+schedule_delete_success_message: Berhasil Menghapus Jadwal Keberangkatan
+schedule_delete_failed_header: Gagal Menghapus Jadwal Keberangkatan
+schedule_delete_failed_message: Jadwal Keberangkatan Gagal Dihapus, Dengan Kemungkinan Bahwa Jadwal Keberangkatan Sudah Terhapus, atau Ada Kendala Koneksi.
