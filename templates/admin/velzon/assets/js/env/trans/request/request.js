@@ -42,7 +42,7 @@ var ExAsUser = (function() {
         columnDefs: [{
                 targets: i++,
                 width: "1%",
-                data: "schedule_number"
+                data: "id_request"
             },
             {
                 targets: i++,
@@ -57,9 +57,9 @@ var ExAsUser = (function() {
             },
             {
                 targets: i++,
-                data: "departure_time",
+                data: null,
                 render: function(data, type, full, meta) {
-                    return data;
+                    return `${data.departure_date}, ${data.departure_time}`;
                 }
             },
             {
@@ -71,9 +71,16 @@ var ExAsUser = (function() {
             },
             {
                 targets: i++,
-                data: "arrival_time",
+                data: null,
                 render: function(data, type, full, meta) {
-                    return data;
+                    return `${data.return_date}, ${data.return_time}`;
+                }
+            },
+            {
+                targets: i++,
+                data: null,
+                render: function(data, type, full, meta) {
+                    return `${data.status}<br><i class="text-small fw-bold">${data.notes ?? ""}</i>`;
                 },
             },
             {
@@ -210,11 +217,18 @@ var ExAsUser = (function() {
         }
     }
     
-    var action_btn = function(status) {
+    var action_btn = function(data) {        
         return '<div class="btn-group" role="group">' +            
-            (ExAs.Permission('UP') ? '<button type="button" class="btn btn-warning btn-icon waves-effect waves-light tombolEdit"><i class="ri-edit-2-fill"></i></button>' : '') +
-            (ExAs.Permission('DT') ? '<button type="button" class="btn btn-danger btn-icon waves-effect waves-light tombolDelete"><i class="ri-delete-bin-5-line"></i></button>' : '') +
-            '</div>';
+            (ExAs.Permission('UP') ? 
+                `<button type="button" class="btn btn-warning btn-icon waves-effect waves-light tombolView"><i class="mdi mdi-information-outline"></i></button>                 
+                 <button type="button" class="btn btn-success btn-icon waves-effect waves-light tombolApproved"><i class="la la-check-circle-o"></i></button>                 
+                 <button type="button" class="btn btn-danger btn-icon waves-effect waves-light tombolDenied"><i class="ri-close-circle-line"></i></button>`
+            : '') +
+            // (ExAs.Permission('DT') ?
+            //     `<button type="button" class="btn btn-dark btn-icon waves-effect waves-light tombolDelete"><i class="ri-delete-bin-5-line"></i></button>`
+            // : '') + 
+        
+        '</div>';
     }
 
     /**
@@ -237,9 +251,11 @@ var ExAsUser = (function() {
         updateTrigger();
         updateClickTrigger();
         deleteTrigger();
+        approveTrigger();
+        deniedTrigger();
         statusClickTrigger();
         statusHoverTrigger();
-        openQrClickTrigger();
+        viewDataClickTrigger();
     }
 
     var statusClickTrigger = function() {
@@ -363,15 +379,55 @@ var ExAsUser = (function() {
         });
     }
 
-    var openQrClickTrigger = function() {
-        $("table tbody").on("click", ".tombolOpenQr", function() {
+    var viewDataClickTrigger = function() {
+        $("table tbody").on("click", ".tombolView", function() {
             var drop = tb.row($(this).parents("tr")).data();         
-            $('#qrcode-plat-number').html(drop.kd_kendaraan);
-            $('#qrcode-canvas-image').attr('src', e3nCeL0t + drop.qr_code);
-            $('#qrcode-canvas-image').attr('height', '100%');
-            $('#qrcode-canvas-image').attr('width', '100%');
+            ExAl.Modal.Show('#modalView');                      
+            $.ajax({
+                url: e3nCeL0t + MoDaD + MAIN + "detail",
+                method: "POST",
+                data: {
+                    id_request: drop.id_request,
+                    scrty: true
+                },
+                success: function(response) {
+                    if (ExAs.Utils.Json.valid(response)) {
+                        var resp = JSON.parse(response);
 
-            ExAl.Modal.Show('#modalQRCode');
+                        $('#schedule_number').val(resp.data.schedule_number);
+                        $('#type_schedule_bus').val(resp.data.type_bus);
+                        $('#departure').val(resp.data.departure);
+                        $('#arrival').val(resp.data.arrival);
+                        $('#departure_day').val(resp.data.departure_day);
+                        $('#departure_date').val(resp.data.departure_date);
+                        $('#departure_time').val(resp.data.departure_time);  
+                        $('#return_day').val(resp.data.return_day);
+                        $('#return_date').val(resp.data.return_date);
+                        $('#return_time').val(resp.data.return_time);  
+                        var passengerList = resp.data.passenger;
+                        var cardHTML = '';
+                        passengerList.forEach((passenger, index) => {
+                            cardHTML += `<div class="col-lg-4 col-md-6 col-sm-12 p-2">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    ${passenger.name_passenger} (${passenger.gender_passenger})                                               
+                                                </div>
+                                                <div class="card-body">
+                                                    <p>Usia ${passenger.age_passenger},</p>
+                                                    <p>Hubungan ${passenger.relation_passenger}</p>
+                                                    <p>No. Kursi ${passenger.seat_number != "" ? passenger.seat_number : "Belum ditentukan"}</p>
+                                                </div>                                                
+                                            </div>
+                                        </div>`;                                
+                        });
+
+                        $("#data-passenger").html(cardHTML);
+                    }
+                },
+                error: function(e) {
+                    console.log(e);
+                },
+            });
         });
     }
 
@@ -434,8 +490,7 @@ var ExAsUser = (function() {
                         method: "POST",
                         async: false,
                         data: {
-                            id_revaluation: drop.id_revaluation,
-                            asset_number: drop.asset_number,
+                            ticket_number: drop.ticket_number,
                             scrty: true
                         },
                         success: function(response) {
@@ -453,7 +508,85 @@ var ExAsUser = (function() {
                 }
             })
         });
-    }    
+    }
+    
+    var approveTrigger = function() {
+        $("table tbody").on("click", ".tombolApproved", function() {
+            var drop = tb.row($(this).parents("tr")).data();
+
+            Swal.fire({
+                showCancelButton: true,
+                title: "Yakin ingin Request ini diterima?",
+                confirmButtonText: "Ya, Saya yakin",
+                cancelButtonText: "Batal",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: e3nCeL0t + MoDaD + MAIN + "approve",
+                        method: "POST",
+                        async: false,
+                        data: {
+                            id_request: drop.id_request,
+                            scrty: true
+                        },
+                        success: function(response) {
+                            if (ExAs.Utils.Json.valid(response)) {
+                                var res = JSON.parse(response);
+                                if (res.status) {
+                                    loadData()
+                                    ExAl.Toast.Success(res.header, res.message);
+                                } else {
+                                    ExAl.Toast.Failed(res.header, res.message);
+                                }
+                            }
+                        }
+                    })                    
+                }
+            })
+        });
+    }
+
+    var deniedTrigger = function(){
+        
+        $("table tbody").on("click", ".tombolDenied", function() {
+            var drop = tb.row($(this).parents("tr")).data();
+            Swal.fire({
+                title: "Yakin ingin Request ini ditolak?",
+                input: "text",
+                inputAttributes: {
+                  autocapitalize: "off"
+                },
+                showCancelButton: true,
+                confirmButtonText: "Ya, Saya yakin",
+                showLoaderOnConfirm: true,
+                preConfirm: async (message) => {
+                    $.ajax({
+                        url: e3nCeL0t + MoDaD + MAIN + "denied",
+                        method: "POST",
+                        async: false,
+                        data: {
+                            id_request: drop.id_request,
+                            notes: message,
+                            scrty: true
+                        },
+                        success: function(response) {
+                            if (ExAs.Utils.Json.valid(response)) {
+                                var res = JSON.parse(response);
+                                if (res.status) {
+                                    loadData()
+                                    ExAl.Toast.Success(res.header, res.message);
+                                } else {
+                                    ExAl.Toast.Failed(res.header, res.message);
+                                }
+                            }
+                        }
+                    })
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+              });
+        });
+    }
+     
 
     var monthSelected;
     var weekSelected;
@@ -467,79 +600,72 @@ var ExAsUser = (function() {
     $('#month').on('change', function() {
         monthSelected = this.value;
         loadSchedule();
-    });
-
-    $(".myButton").click(function() {
-        console.log('x');
-        // // Retrieve the data attached to the button
-        // var myData = $(this).data('mydata');
-        
-        // // Access the object and its properties
-        // console.log("Name: " + myData.name);
-        // console.log("Age: " + myData.age);
-    });
-    
+    });    
     
     function loadSchedule () {
         $("#schedule-available").html("<center>Loading...</center>");
-        var monthArray = monthSelected.split("-");
-
-        if (monthArray[0] != null && monthArray[1] != null && weekSelected != null) {
-            $.ajax({
-                url: e3nCeL0t + MoDaD + MAIN + "available",
-                method: "POST",
-                async: true,
-                data: {
-                    scrty   : true,
-                    month   : monthArray[1],
-                    week    : weekSelected,
-                    year    : monthArray[0]
-                },
-                success: function(response) {
-                    var respon = ExAs.uXvbI(response)
-                    if (ExAs.Utils.Json.valid(respon)) {
-                        var res = JSON.parse(respon);
-                        console.log(res);
-                        var no = 1;
-                        var newLement = "";
-    
-                        if (res.success) {
-                            (res.data).forEach(element => {
-                                element.number = no++;
-                                newLement += `<div class="col-lg-4">
-                                                <div class="card">
-                                                    <div class="row no-gutters">
-                                                        <div class="col">
-                                                            <div class="card-body">
-                                                                <h5 class="card-title">
-                                                                    ${element.departure_day}
-                                                                    <div class="badge ${element.type_schedule_bus == "WEEKEND" ? "bg-secondary" : "bg-primary"}">
-                                                                    ${element.type_schedule_bus}</div>
-                                                                </h5>
-                                                                <p class="card-text"><small class="text-muted">${element.departure_date}</small></p>
-                                                                   
-                                                                <a href="${e3nCeL0t}${MoDaD}${MAIN}add?schedule_number=${element.schedule_number}&departure_date=${element.departure_date}" 
-                                                                    class="btn btn-primary btn-sm" role="button" type="button">Pilih</a>
+        if (monthSelected != null) {
+            var monthArray = monthSelected.split("-");
+            
+            if (monthArray[0] != null && monthArray[1] != null && weekSelected != null) {
+                $.ajax({
+                    url: e3nCeL0t + MoDaD + MAIN + "available",
+                    method: "POST",
+                    async: true,
+                    data: {
+                        scrty   : true,
+                        month   : monthArray[1],
+                        week    : weekSelected,
+                        year    : monthArray[0]
+                    },
+                    success: function(response) {
+                        var respon = ExAs.uXvbI(response)
+                        if (ExAs.Utils.Json.valid(respon)) {
+                            var res = JSON.parse(respon);
+                            console.log(res);
+                            var no = 1;
+                            var newLement = "";
+        
+                            if (res.success) {
+                                (res.data).forEach(element => {
+                                    element.number = no++;
+                                    newLement += `<div class="col-lg-4">
+                                                    <div class="card">
+                                                        <div class="row no-gutters">
+                                                            <div class="col">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">
+                                                                        ${element.departure_day}
+                                                                        <div class="badge ${element.type_schedule_bus == "WEEKEND" ? "bg-secondary" : "bg-primary"}">
+                                                                        ${element.trip_number}</div>
+                                                                    </h5>
+                                                                    <p class="card-text"><small class="text-muted">${element.departure_date}</small></p>
+                                                                       
+                                                                    <a href="${e3nCeL0t}${MoDaD}${MAIN}add?id_trip=${element.id_trip}&departure_date=${element.departure_date}" 
+                                                                        class="btn btn-primary btn-sm" role="button" type="button">Pilih</a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>`;
-                            });
-    
-                            setTimeout(() => {
-                                $("#schedule-available").html(newLement);
-                            }, 500);
-                            // return;
-                        }
+                                                </div>`;
+                                });
+        
+                                setTimeout(() => {
+                                    $("#schedule-available").html(newLement);
+                                    return;
+                                }, 500);
+                            } else {
+                                setTimeout(() => {
+                                    $("#schedule-available").html("<center>Data tidak tersedia</center>");
+                                }, 500);
+                            }
+                        }                            
                     }
-    
-                    // setTimeout(() => {
-                    //     $("#schedule-available").html("Data tidak ditemukan");
-                    // }, 500);
-                }
-            });
-        } 
+                });
+            } else {
+                $("#schedule-available").html("<center>Harap Pilih Periode Keberangkatan lebih dulu</center>");
+            }
+        }
     };
     
 
@@ -548,7 +674,6 @@ var ExAsUser = (function() {
             search();
             Transaction();
             $( "#year" ).datepicker({dateFormat: 'yy'});
-            // setInterval(loadData, GLOBAL_COOLDOWN)
         },
         refresh: function() { loadData() }
     }

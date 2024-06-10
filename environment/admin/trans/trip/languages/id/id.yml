@@ -1,44 +1,38 @@
 req_bus_weekend: Request Bus Mingguan
 
-show_req_bus_weekend_col_1: "No"
-show_req_bus_weekend_col_2: Nomor Request
-show_req_bus_weekend_col_3: Total Penumpang
-show_req_bus_weekend_col_4: Keberangkatan
-show_req_bus_weekend_col_5: Jadwal Berangkat
-show_req_bus_weekend_col_6: Tujuan
-show_req_bus_weekend_col_7: Jadwal Pulang
-show_req_bus_weekend_col_8: Status
+show_trip_bus_weekend_col_1: "No"
+show_trip_bus_weekend_col_2: Nomor Jadwal
+show_trip_bus_weekend_col_3: Nomor Keberangkatan
+show_trip_bus_weekend_col_4: Nomor Bus
+show_trip_bus_weekend_col_5: Rute
+show_trip_bus_weekend_col_6: Jadwal Berangkat
+show_trip_bus_weekend_col_7: Jadwal Pulang
 
 departure : Keberangkatan
 arrival : Tujuan
-schedule_number : Nomor Jadwal
+schedule_number : Kode Jadwal
 type_schedule_bus : Jenis Jadwal
 departure_day : Hari Keberangkatan
 departure_date : Tanggal Keberangkatan
 departure_time : Jam Berangkat
 return_day : Hari Kepulangan
+return_day_plc : Hari Kepulangan wajib diisi
 return_date : Tanggal Kepulangan
+return_date_plc : Tanggal Kepulangan wajib diisi
 return_time : Jam Pulang
+return_time_plc : Jam Pulang wajib diisi
 total_passenger : Jumlah Penumpang
 
 request_view_modal_title: "Detail Request"
 
-passenger_add_modal_title: Lengkapi Data Penumpang
-passenger_modal_label_name: Nama Penumpang
-passenger_modal_label_name_plc: Bidang isian Nama Penumpang wajib diisi.
-passenger_modal_input_age: Usia Penumpang
-passenger_modal_input_age_plc: Bidang isian Usia Penumpang wajib diisi.
-passenger_modal_input_gender: Jenis Kelamin
-passenger_modal_input_gender_plc: Bidang isian Jenis Kelamin wajib diisi.
-passenger_modal_input_relation: Hubungan Karyawan
-passenger_modal_input_relation_plc: Bidang isian Hubungan Karyawan wajib diisi.
-passenger_modal_input_seat: Nomor Kursi
-passenger_modal_input_seat_plc: Bidang isian Nomor Kursi wajib diisi.
-
-req_bus_weekend_btn_add : "Request Baru"
-req_bus_weekend_add_modal_title : "Request Bus Baru (Weekend)"
-req_bus_weekend_add_modal_label_month : "Bulan"
-req_bus_weekend_add_modal_label_week : "Minggu ke"
+trip_bus_weekend_btn_add : "Trip Baru"
+trip_bus_weekend_add_modal_title : "Trip Bus Baru (Weekend)"
+trip_bus_weekend_add_modal_label_month : "Bulan"
+trip_bus_weekend_add_modal_label_week : "Minggu ke"
+trip_number: Nomor Trip
+trip_number_plc: Nomor trip wajib diisi
+bus_number: Nomor Bus
+bus_number_plc: Nomor Bus wajib diisi
 
 req_bus_weekend_add_success_header: Berhasil
 req_bus_weekend_add_success_message: Berhasil Menyimpan Permintaan

@@ -2,7 +2,7 @@
 
 var ExAsUser = (function() {
     var idTable = "#AsTable";
-    var MAIN = 'master/vehicle/';
+    var MAIN = 'trans/trip/';
     var e3nCeL0t = ExAs.uXvbI(uXvbI);
     var MoDaD = ExAs.m0d(m0d);
     var tableApi, modal_header;
@@ -11,73 +11,89 @@ var ExAsUser = (function() {
     var sSion = JSON.parse(ses);
     var i = 0;
 
+    var limit = 10;
+
     var tb = new DataTable(idTable, {
+        dom : "Bfrtip",
+        processing: true,
+        serverSide: true,
+        paging: true,
+        info: true,
         "order": [
             [0, 'asc']
         ],
         scrollY: true,
         autoWidth: false,
-        scrollX: true,
-        scrollCollapse: false,
-        deferRender: true,
-        rowId: 'id_user',
-        // paging: !0,
-        // info: !0,
+        // scrollX: true,
+        // scrollCollapse: false,
+        // deferRender: true,
+        rowId: 'asset_number',
+        // // info: !0,
+        pagingType: 'simple_numbers',
         "fnInfoCallback": function(oSettings, iStart, iEnd, iMax, iTotal, sPre) {
             if (iTotal != 0) {
-                $('#tableInfo').html('Menampilkan Data ' + iStart + " - " + iEnd + " dari " + iTotal + ' Data')
+                $('#tableInfo').html('Menampilkan Data ' + iStart + " - " + (isNaN(iEnd) ? iTotal : iEnd) + " dari " + iTotal + ' Data')
             } else {
                 $('#tableInfo').html('Tidak ada Data')
                 $('.existPaginate').val(1)
             }
             return iStart + " - " + iEnd + " of " + iTotal;
         },
-        select: false,
-        // dom: 'frtip',
         columnDefs: [{
                 targets: i++,
-                width: "1%",
-                data: "number",
-                render: function(data, type, full, meta) {
-                    return data
+                // width: "1%",
+                data: "schedule_number"
+            },
+            {
+                targets: i++,
+                data: "trip_number"
+            },
+            {
+                targets: i++,
+                data: "bus_number",                
+            },
+            {
+                targets: i++,
+                data: null,                
+                render: function(data){
+                    return `${data.departure} -> ${data.arrival}`
                 }
             },
             {
                 targets: i++,
-                data: "kd_kendaraan",
+                data: null,
                 render: function(data, type, full, meta) {
-                    return data
-                },
-                // searchable: false
-            },           
-            {
-                targets: i++,
-                data: "model",
-                render: function(data, type, full, meta) {
-                    return data
+                    return `${data.departure_date}, ${data.departure_time.substring(0,5)} WIB`;
                 }
-            },
+            }, 
             {
                 targets: i++,
-                visible: (ExAs.Permission('VW') ||
-                        ExAs.Permission('UP') ||
-                        ExAs.Permission('DT')) ?
-                    true : false,
-                width: "5%",
-                data: "status",
+                data: null,
+                render: function(data, type, full, meta) {
+                    return `${data.return_date}, ${data.return_time.substring(0,5)} WIB`;
+                }
+            },      
+            {
+                targets: i++,
+                data: null,
                 render: function(data, type, full, meta) {
                     return action_btn(data)
                 }
             },
+            
         ],
         "language": {
             "emptyTable": '<p style="margin-top: 15px !important">' +
                 'Tidak ada data' +
                 '</p>'
         },
-        drawCallback: function(oSettings) {
-            tableApi = this.api()
-        },
+        drawCallback: function () {
+            var table = this.api();
+            var pageInfo = table.page.info();
+            if (isNaN(pageInfo.page)) {
+                table.ajax.reload();
+            }
+        },        
         ajax: function(oData, oCallback, oSetting) {
             $.ajax({
                 url: e3nCeL0t + MoDaD + MAIN + "load",
@@ -85,27 +101,30 @@ var ExAsUser = (function() {
                 async: true,
                 data: {
                     scrty: true,
+                    start: oData.start,
+                    limit: limit, //oData.search.value != '' ? 1 : limit
+                    keyword: oData.search.value
                 },
                 success: function(response) {
-                    //     // ExAl.Loading.Table.Hide();
+                        ExAl.Loading.Table.Hide();
                     var respon = ExAs.uXvbI(response)
                     if (ExAs.Utils.Json.valid(respon)) {
                         var res = JSON.parse(respon)
-                            //console.log(res);
+                            console.log({res});
                         var no = 1;
                         var newLement = [];
 
                         if (res.success) {
-                            (res.data).forEach(element => {
+                            (res.data.data).forEach(element => {
                                 element.number = no++;
                                 newLement.push(element)
                             });
-                        }
+                        }    
 
                         oCallback({
-                            recordsTotal: (newLement).length,
-                            recordsFiltered: (newLement).length,
-                            data: newLement
+                            recordsTotal: res.data?.recordsTotal ?? 0,
+                            recordsFiltered: res.data?.recordsFiltered ?? 0,
+                            data: res.data?.data ?? []
                         })
                     }
                 }
@@ -187,20 +206,13 @@ var ExAsUser = (function() {
             return '<button type="button" class="btn btn-sm rounded-pill btn-danger waves-effect waves-light text-center gantiStatus" style="min-width: 100px"' + (id_user == sSion['token'] ? ' disabled' : '') + '>Error</button>';
         }
     }
-
-    var print_alias_seksi = function(role, alias) {
-        if (role == 'RS003') {
-            return alias;
-        } else if (role == 'RS001') {
-            return 'Liyue Qixing';
-        } else {
-            return '<span class="fw-bold">' + alias + '</span> / Inalum';
-        }
-    }
-
+    
     var action_btn = function(status) {
-        return '<div class="btn-group" role="group">' +
-            (ExAs.Permission('UP') ? '<button type="button" class="btn btn-warning btn-icon waves-effect waves-light tombolEdit"><i class="ri-edit-2-fill"></i></button>' : '') +
+        return '<div class="btn-group" role="group">' +            
+            (ExAs.Permission('UP') ? `
+                <button type="button" class="btn btn-warning btn-icon waves-effect waves-light tombolEdit"><i class="ri-edit-2-fill"></i></button>
+                <button type="button" class="btn btn-success btn-icon waves-effect waves-light tombolSeat"><i class="mdi mdi-seat-recline-normal"></i></button>
+            ` : '') +
             (ExAs.Permission('DT') ? '<button type="button" class="btn btn-danger btn-icon waves-effect waves-light tombolDelete"><i class="ri-delete-bin-5-line"></i></button>' : '') +
             '</div>';
     }
@@ -213,6 +225,8 @@ var ExAsUser = (function() {
         tb.ajax.reload(null, false);
     }
 
+    
+
     /**
      * Transaction
      */
@@ -222,11 +236,11 @@ var ExAsUser = (function() {
         addTrigger();
         updateTrigger();
         updateClickTrigger();
+        seatClickTrigger();
         deleteTrigger();
         statusClickTrigger();
         statusHoverTrigger();
-        openQrClickTrigger();
-        generateQRTrigger();
+        viewDataClickTrigger();
     }
 
     var statusClickTrigger = function() {
@@ -326,7 +340,6 @@ var ExAsUser = (function() {
                             }
                         },
                         error: function(e) {
-                            // console.log(e);
                             $("#submit").removeClass("spinner spinner-white spinner-right disabled");
                         },
                     });
@@ -341,45 +354,67 @@ var ExAsUser = (function() {
     var updateClickTrigger = function() {
         $("table tbody").on("click", ".tombolEdit", function() {
             var drop = tb.row($(this).parents("tr")).data();
-            console.log({drop});
-            // if (modal_header == '' || typeof modal_header === 'undefined') {
-            //     modal_header = $('#modal_header_edit').text();
-            // }
-            // $('#modal_header_edit').html(modal_header + ': <b>' + drop.nama + '</b>');
-            $('#uid_user_edit').val(drop.id_user)
-            $('#edit_plat_kendaraan').val(drop.kd_kendaraan)
-            $('#edit_model').val(drop.model)
-            $('#edit_color').val(drop.warna)
-            $('#edit_management').val(drop.management).trigger('change')
-            $('#edit_bensin').val(drop.bensin).trigger('change')
-            ExAl.Modal.Show('#modalEdit');
+            location.href = `${e3nCeL0t}${MoDaD}${MAIN}edit?id_trip=${drop.id_trip}`;
         });
     }
 
-    var openQrClickTrigger = function() {
-        $("table tbody").on("click", ".tombolOpenQr", function() {
+    var seatClickTrigger = function() {
+        $("table tbody").on("click", ".tombolSeat", function() {
+            var drop = tb.row($(this).parents("tr")).data();
+            location.href = `${e3nCeL0t}${MoDaD}${MAIN}seat?id_trip=${drop.id_trip}`;
+        });
+    }
+
+    var viewDataClickTrigger = function() {
+        $("table tbody").on("click", ".tombolView", function() {
             var drop = tb.row($(this).parents("tr")).data();         
-            $('#qrcode-plat-number').html(drop.kd_kendaraan);
-            $('#qrcode-canvas-image').attr('src', e3nCeL0t + drop.qr_code);
-            $('#qrcode-canvas-image').attr('height', '100%');
-            $('#qrcode-canvas-image').attr('width', '100%');
+            ExAl.Modal.Show('#modalView');                      
+            $.ajax({
+                url: e3nCeL0t + MoDaD + MAIN + "detail",
+                method: "POST",
+                data: {
+                    id_request: drop.id_request,
+                    scrty: true
+                },
+                success: function(response) {
+                    if (ExAs.Utils.Json.valid(response)) {
+                        var resp = JSON.parse(response);
 
-            ExAl.Modal.Show('#modalQRCode');
+                        $('#schedule_number').val(resp.data.schedule_number);
+                        $('#type_schedule_bus').val(resp.data.type_bus);
+                        $('#departure').val(resp.data.departure);
+                        $('#arrival').val(resp.data.arrival);
+                        $('#departure_day').val(resp.data.departure_day);
+                        $('#departure_date').val(resp.data.departure_date);
+                        $('#departure_time').val(resp.data.departure_time);  
+                        $('#return_day').val(resp.data.return_day);
+                        $('#return_date').val(resp.data.return_date);
+                        $('#return_time').val(resp.data.return_time);  
+                        var passengerList = resp.data.passenger;
+                        var cardHTML = '';
+                        passengerList.forEach((passenger, index) => {
+                            cardHTML += `<div class="col-lg-3 col-md-6 col sm-12 p-2">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    ${passenger.name_passenger}                                                     
+                                                </div>
+                                                <div class="card-body">
+                                                    <p>Usia ${passenger.age_passenger},</p>
+                                                    <p>Hubungan ${passenger.relation_passenger}</p>
+                                                    <p>No. Kursi ${passenger.seat_number != "" ? passenger.seat_number : "Belum ditentukan"}</p>
+                                                </div>                                                
+                                            </div>
+                                        </div>`;                                
+                        });
+
+                        $("#data-passenger").html(cardHTML);
+                    }
+                },
+                error: function(e) {
+                    console.log(e);
+                },
+            });
         });
-    }
-
-    var showHide = function(array = [], show = false) {
-        $.each(array, function(i, val) {
-            if (show) {
-                // console.log(val + ' required')
-                $('#div_' + val).show();
-                $('#' + val).attr("required", true);
-            } else {
-                // console.log(val + ' not required')
-                $('#div_' + val).hide();
-                $('#' + val).removeAttr("required");
-            }
-        })
     }
 
     var updateTrigger = function() {
@@ -387,6 +422,7 @@ var ExAsUser = (function() {
 
             ExAs.Validator("#submitEdit", function(isValid) {
                 if (isValid == true) {
+                    // updateTrigger();
                     var _input = $("#form_edit").serializeArray();
                     _input.push({ name: "scrty", value: true })
 
@@ -433,6 +469,7 @@ var ExAsUser = (function() {
     var deleteTrigger = function() {
         $("table tbody").on("click", ".tombolDelete", function() {
             var drop = tb.row($(this).parents("tr")).data();
+            console.log(drop);
             ExAl.Toast.Delete({}, function(result) {
                 if (result) {
                     $.ajax({
@@ -440,15 +477,15 @@ var ExAsUser = (function() {
                         method: "POST",
                         async: false,
                         data: {
-                            kd_kendaraan: drop.kd_kendaraan,
+                            id_trip: drop.id_trip,
                             scrty: true
                         },
                         success: function(response) {
                             if (ExAs.Utils.Json.valid(response)) {
                                 var res = JSON.parse(response);
                                 if (res.status) {
-                                    loadData();
-                                    ExAl.Toast.Success(res.header, res.message + ': <b>' + drop.kd_kendaraan + '</b>');
+                                    loadData()
+                                    ExAl.Toast.Success(res.header, res.message);
                                 } else {
                                     ExAl.Toast.Failed(res.header, res.message);
                                 }
@@ -459,59 +496,98 @@ var ExAsUser = (function() {
             })
         });
     }
+     
 
-    var generateQRTrigger = function() {        
-        if (ExAs.Doc.Exist("#form_qr")) {
+    var monthSelected;
+    var weekSelected;
 
-            ExAs.Validator("#submitGenerateQR", function(isValid) {
-                if (isValid == true) {
-                    $(this).addClass("spinner spinner-white spinner-right disabled");
-                    $("#form_qr button").attr("disabled", "disabled");
+    $('#week').on('change', function() {
+        weekSelected = this.value;
+        loadSchedule();
 
-                    $.ajax({
-                        url: e3nCeL0t + MAIN + "generate",
-                        method: "GET",
-                        async: false,
-                        data: {
-                            kd_kendaraan: $("#qrcode-plat-number").html(),
-                            scrty: true
-                        },
-                        success: function(response) {
-                            $("#submitGenerateQR").removeClass("spinner spinner-white spinner-right disabled");
-                            $("#form_qr button").removeAttr("disabled");
+    });
 
-                            if (ExAs.Utils.Json.valid(response)) {
-                                var res = JSON.parse(response);
-                                if (res.status) {
-                                    ExAl.Toast.Success(res.header, res.message, function(result) {
-                                        if (result.isDismissed) {
-                                            loadData();
-                                            ExAl.Modal.Close('#modalQRCode', true);
-                                            // $('#form_qr').trigger('reset')
-                                        }
-                                    });
-                                } else {
-                                    ExAl.Toast.Failed(res.header, res.message);
-                                }
+    $('#month').on('change', function() {
+        monthSelected = this.value;
+        loadSchedule();
+    });    
+    
+    function loadSchedule () {
+        $("#schedule-available").html("<center>Loading...</center>");
+        if (monthSelected != null) {
+            var monthArray = monthSelected.split("-");
+            
+            if (monthArray[0] != null && monthArray[1] != null && weekSelected != null) {
+                $.ajax({
+                    url: e3nCeL0t + MoDaD + MAIN + "availableschedule",
+                    method: "POST",
+                    async: true,
+                    data: {
+                        scrty   : true,
+                        month   : monthArray[1],
+                        week    : weekSelected,
+                        year    : monthArray[0]
+                    },
+                    success: function(response) {
+                        var respon = ExAs.uXvbI(response)
+                        if (ExAs.Utils.Json.valid(respon)) {
+                            var res = JSON.parse(respon);
+                            console.log(res);
+                            var no = 1;
+                            var newLement = "";
+        
+                            if (res.success) {
+                                (res.data).forEach(element => {
+                                    element.number = no++;
+                                    newLement += `<div class="col-lg-4">
+                                                    <div class="card">
+                                                        <div class="row no-gutters">
+                                                            <div class="col">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">
+                                                                        ${element.departure_day}
+                                                                        <div class="badge ${element.type_schedule_bus == "WEEKEND" ? "bg-secondary" : "bg-primary"}">
+                                                                        ${element.type_schedule_bus}</div>
+                                                                    </h5>
+                                                                    <p class="card-text"><small class="text-muted">${element.departure_date}</small></p>
+                                                                       
+                                                                    <a href="${e3nCeL0t}${MoDaD}${MAIN}add?schedule_number=${element.schedule_number}&departure_date=${element.departure_date}" 
+                                                                        class="btn btn-primary btn-sm" role="button" type="button">Pilih</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>`;
+                                });
+        
+                                setTimeout(() => {
+                                    $("#schedule-available").html(newLement);
+                                }, 500);                                
+                            } else {
+                                setTimeout(() => {
+                                    $("#schedule-available").html("<center>Data tidak ditemukan</center>");
+                                }, 500);
                             }
-                        },
-                        error: function(e) {
-                            // console.log(e);
-                            $("#submitGenerateQR").removeClass("spinner spinner-white spinner-right disabled");
-                        },
-                    }) 
-                } else {
-                    $("#submitGenerateQR").removeClass("spinner spinner-white spinner-right disabled");
-                    $("#form_qr button").removeAttr("disabled");
-                }
-            });
-        }               
-    }
+                        }
+        
+                        // setTimeout(() => {
+                        //     $("#schedule-available").html("Data tidak ditemukan");
+                        // }, 500);
+                    }
+                });
+            } else {
+                $("#schedule-available").html("<center>Harap Pilih Periode Jadwal Keberangkatan lebih dulu</center>");
+            }
+        }
+
+    };
+    
 
     return {
         run: function() {
             search();
             Transaction();
+            $( "#year" ).datepicker({dateFormat: 'yy'});
         },
         refresh: function() { loadData() }
     }

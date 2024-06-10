@@ -160,10 +160,11 @@
                                     <input type="text" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_departure_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_departure_error'); ?>" id="departure" name="departure" />
                                     <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_departure_error'); ?></div>
                                 </div>
+                                    
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <label><?= getLangKey('schedule_add_modal_label_departure_time'); ?> <span class="text-danger">*</span></label>
-                                    <input type="time" min="<?= date('Y-m-d'); ?>" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_departure_time_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_departure_time_error'); ?>" id="departure_time" name="departure_time" />
-                                    <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_departure_time_error'); ?></div>
+                                    <label><?= getLangKey('schedule_add_modal_label_arrival'); ?> <span class="text-danger">*</span></label>
+                                    <input type="text" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_arrival_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_arrival_error'); ?>" id="arrival" name="arrival" />
+                                    <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_arrival_error'); ?></div>                                    
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -175,52 +176,25 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <label><?= getLangKey('schedule_add_modal_label_departure_day'); ?> <span class="text-danger">*</span></label>
                                     <select class="form-control" required style="width: 100%" id="departure_day" name="departure_day">
-                                        <option value="MONDAY">Senin</option>
+                                        <!-- <option value="MONDAY">Senin</option>
                                         <option value="TUESDAY" selected>Selasa</option>
                                         <option value="WEDNESDAY" selected>Rabu</option>
-                                        <option value="THURSDAY" selected>Kamis</option>
+                                        <option value="THURSDAY" selected>Kamis</option> -->
                                         <option value="FRIDAY" selected>Jum'at</option>
                                         <option value="SATURDAY" selected>Sabtu</option>
-                                        <option value="SUNDAY" selected>Minggu</option>
+                                        <!-- <option value="SUNDAY" selected>Minggu</option> -->
                                     </select>
                                     <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_departure_day_error'); ?></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="p-3">
                             <div class="row mb-3">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <label><?= getLangKey('schedule_add_modal_label_arrival'); ?> <span class="text-danger">*</span></label>
-                                <input type="text" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_arrival_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_arrival_error'); ?>" id="arrival" name="arrival" />
-                                <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_arrival_error'); ?></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label><?= getLangKey('schedule_add_modal_label_departure_time'); ?> <span class="text-danger">*</span></label>
+                                    <input type="time" min="<?= date('Y-m-d'); ?>" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_departure_time_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_departure_time_error'); ?>" id="departure_time" name="departure_time" />
+                                    <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_departure_time_error'); ?></div>                                    
+                                </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <label><?= getLangKey('schedule_add_modal_label_arrival_time'); ?> <span class="text-danger">*</span></label>
-                                <input type="time" min="<?= date('Y-m-d'); ?>" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_arrival_time_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_arrival_time_error'); ?>" id="arrival_time" name="arrival_time" />
-                                <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_arrival_time_error'); ?></div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <label><?= getLangKey('schedule_add_modal_label_arrival_date'); ?> <span class="text-danger">*</span></label>
-                                <input type="date" min="<?= date('Y-m-d'); ?>" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_arrival_date_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_arrival_date_error'); ?>" id="arrival_date" name="arrival_date" />
-                                <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_arrival_date_error'); ?></div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <label><?= getLangKey('schedule_add_modal_label_arrival_day'); ?> <span class="text-danger">*</span></label>
-                                <select class="form-control" required style="width: 100%" id="arrival_day" name="arrival_day">
-                                    <option value="MONDAY">Senin</option>
-                                    <option value="TUESDAY" selected>Selasa</option>
-                                    <option value="WEDNESDAY" selected>Rabu</option>
-                                    <option value="THURSDAY" selected>Kamis</option>
-                                    <option value="FRIDAY" selected>Jum'at</option>
-                                    <option value="SATURDAY" selected>Sabtu</option>
-                                    <option value="SUNDAY" selected>Minggu</option>
-                                </select>
-                                <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_arrival_day_error'); ?></div>
-                            </div>
-                        </div>
-                        </div>
+                        </div>                        
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="modal-footer">
@@ -241,25 +215,20 @@
                     <div class="modal-header p-3">
                         <h4 class="card-title mb-0"><?= getLangKey('schedule_edit_modal_title'); ?></h4>
                         <button type="button" class="btn-close tutup"></button>
-                    </div>
-                    <div class="alert alert-warning rounded-0 mb-0">
-                        <p class="mb-0">Tanda <span class="fw-semibold">(*)</span> Wajib Diisi</p>
-                    </div>
-                    <div class="modal-body pb-2">                                                            
-                        <div class="mb-3">
-                            <label><?= getLangKey('schedule_add_modal_label_number'); ?> <span class="text-danger">*</span></label>
-                            <div class="input-group mb-3">
-                                <input type="text" readonly class="form-control readonly" placeholder="<?= getLangKey('schedule_add_modal_label_number_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_number_error'); ?>" id="schedule_number" name="schedule_number" />
-                            </div>                            
-                            <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_number_error'); ?></div>
                         </div>
-                        <div class="mb-3">
-                            <label><?= getLangKey('schedule_add_modal_label_type'); ?> <span class="text-danger">*</span></label>                            
-                            <div class="input-group mb-3">
-                                <input type="text" readonly class="form-control readonly" placeholder="<?= getLangKey('schedule_add_modal_label_type_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_type_error'); ?>" id="edit_type_schedule_bus" name="type_schedule_bus" />
+                        <div class="alert alert-warning rounded-0 mb-0">
+                            <p class="mb-0">Tanda <span class="fw-semibold">(*)</span> Wajib Diisi</p>
                             </div>
+                            <div class="modal-body pb-2">                                                            
+                                <div class="mb-3">
+                                    <input type="hidden" name="schedule_number" id="edit_schedule_number"/>
+                                    <label><?= getLangKey('schedule_add_modal_label_type'); ?> <span class="text-danger">*</span></label>                            
+                                    <select class="form-control" required style="width: 100%" id="edit_type_schedule_bus" name="type_schedule_bus">
+                                        <option value="WEEKEND">WEEKEND</option>
+                                <option value="HOLIDAY" selected>HOLIDAY</option>
+                            </select>
                             <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_type_error'); ?></div>
-                        </div>                        
+                        </div>
                         <div class="p-3">
                             <div class="row mb-3">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
@@ -267,10 +236,11 @@
                                     <input type="text" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_departure_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_departure_error'); ?>" id="edit_departure" name="departure" />
                                     <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_departure_error'); ?></div>
                                 </div>
+                                    
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <label><?= getLangKey('schedule_add_modal_label_departure_time'); ?> <span class="text-danger">*</span></label>
-                                    <input type="time" min="<?= date('Y-m-d'); ?>" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_departure_time_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_departure_time_error'); ?>" id="edit_departure_time" name="departure_time" />
-                                    <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_departure_time_error'); ?></div>
+                                    <label><?= getLangKey('schedule_add_modal_label_arrival'); ?> <span class="text-danger">*</span></label>
+                                    <input type="text" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_arrival_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_arrival_error'); ?>" id="edit_arrival" name="arrival" />
+                                    <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_arrival_error'); ?></div>                                    
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -282,52 +252,25 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <label><?= getLangKey('schedule_add_modal_label_departure_day'); ?> <span class="text-danger">*</span></label>
                                     <select class="form-control" required style="width: 100%" id="edit_departure_day" name="departure_day">
-                                        <option value="MONDAY">Senin</option>
+                                        <!-- <option value="MONDAY">Senin</option>
                                         <option value="TUESDAY" selected>Selasa</option>
                                         <option value="WEDNESDAY" selected>Rabu</option>
-                                        <option value="THURSDAY" selected>Kamis</option>
+                                        <option value="THURSDAY" selected>Kamis</option> -->
                                         <option value="FRIDAY" selected>Jum'at</option>
                                         <option value="SATURDAY" selected>Sabtu</option>
-                                        <option value="SUNDAY" selected>Minggu</option>
+                                        <!-- <option value="SUNDAY" selected>Minggu</option> -->
                                     </select>
                                     <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_departure_day_error'); ?></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="p-3">
                             <div class="row mb-3">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <label><?= getLangKey('schedule_add_modal_label_arrival'); ?> <span class="text-danger">*</span></label>
-                                <input type="text" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_arrival_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_arrival_error'); ?>" id="edit_arrival" name="arrival" />
-                                <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_arrival_error'); ?></div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label><?= getLangKey('schedule_add_modal_label_departure_time'); ?> <span class="text-danger">*</span></label>
+                                    <input type="time" min="<?= date('Y-m-d'); ?>" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_departure_time_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_departure_time_error'); ?>" id="edit_departure_time" name="departure_time" />
+                                    <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_departure_time_error'); ?></div>                                    
+                                </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <label><?= getLangKey('schedule_add_modal_label_arrival_time'); ?> <span class="text-danger">*</span></label>
-                                <input type="time" min="<?= date('Y-m-d'); ?>" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_arrival_time_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_arrival_time_error'); ?>" id="edit_arrival_time" name="arrival_time" />
-                                <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_arrival_time_error'); ?></div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <label><?= getLangKey('schedule_add_modal_label_arrival_date'); ?> <span class="text-danger">*</span></label>
-                                <input type="date" min="<?= date('Y-m-d'); ?>" required class="form-control" placeholder="<?= getLangKey('schedule_add_modal_label_arrival_date_plc'); ?>" data-error="<?= getLangKey('schedule_add_modal_label_arrival_date_error'); ?>" id="edit_arrival_date" name="arrival_date" />
-                                <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_arrival_date_error'); ?></div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <label><?= getLangKey('schedule_add_modal_label_arrival_day'); ?> <span class="text-danger">*</span></label>
-                                <select class="form-control" required style="width: 100%" id="edit_arrival_day" name="arrival_day">
-                                    <option value="MONDAY">Senin</option>
-                                    <option value="TUESDAY" selected>Selasa</option>
-                                    <option value="WEDNESDAY" selected>Rabu</option>
-                                    <option value="THURSDAY" selected>Kamis</option>
-                                    <option value="FRIDAY" selected>Jum'at</option>
-                                    <option value="SATURDAY" selected>Sabtu</option>
-                                    <option value="SUNDAY" selected>Minggu</option>
-                                </select>
-                                <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_arrival_day_error'); ?></div>
-                            </div>
-                        </div>
-                        </div>
+                        </div>                        
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="modal-footer">

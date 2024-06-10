@@ -39,11 +39,11 @@ class User_core extends CI_Controller
                 'libs/select2/css/select2.min.css'
             ];
             $this->view['javascript'] = [
-                'libs/datatables/js/jquery-3.6.0.min.js',
-                'libs/datatables/js/jquery.dataTables.min.js',
-                'libs/datatables/js/dataTables.bootstrap5.min.js',
-                'libs/datatables/js/dataTables.responsive.min.js',
-                'libs/datatables/js/dataTables.buttons.min.js',
+                // 'libs/datatables/js/jquery-3.6.0.min.js',
+                // 'libs/datatables/js/jquery.dataTables.min.js',
+                // 'libs/datatables/js/dataTables.bootstrap5.min.js',
+                // 'libs/datatables/js/dataTables.responsive.min.js',
+                // 'libs/datatables/js/dataTables.buttons.min.js',
                 'libs/select2/js/select2.min.js'
             ];
 
@@ -65,7 +65,11 @@ class User_core extends CI_Controller
                 'X-APP-KEY:' . getEnvi('API_APP_KEY'),
                 'Authorization:' . getSession('token')
             );
-            echo base64_encode($this->api->getData(getEnvi('schema') . '/master/user', $data, false, $headers));
+            $start = $this->input->post("start");
+            $limit = $this->input->post("limit");
+            $keyword = str_replace(' ', '%20', $this->input->post("keyword"));
+
+            echo base64_encode($this->api->getData(getEnvi('schema') . '/master/user/list?start='. $start .'&limit=' . $limit . "&keyword=" . $keyword, $data, false, $headers));
         } else {
             error_404();
         }
@@ -75,7 +79,7 @@ class User_core extends CI_Controller
     {
         if ($this->input->post('scrty') == true && hasOwnProgram()) {
             $data['role'] = getSession('role');
-            echo base64_encode($this->api->getData(getEnvi('schema') . '/master/role', $data, false));
+            echo $this->api->getData(getEnvi('schema') . '/master/role', $data, false);
         } else {
             error_404();
         }
@@ -90,15 +94,6 @@ class User_core extends CI_Controller
         }
     }
 
-    public function perusahaan()
-    {
-        if ($this->input->post('scrty') == true && hasOwnProgram()) {
-            echo base64_encode($this->api->get(getEnvi('schema') . '/master/seksi/perusahaan', false));
-        } else {
-            error_404();
-        }
-    }
-
     public function add()
     {
         if ($this->input->post('scrty') == true && hasOwnProgram()) {
@@ -107,6 +102,7 @@ class User_core extends CI_Controller
             $data['email']          = $this->input->post('username');
             $data['no_hp']          = $this->input->post('no_hp');
             $data['password']       = $this->input->post('password');
+            $data['id_role']        = $this->input->post('role');
             
             $this->api->set_headers(
                 array(
@@ -144,6 +140,7 @@ class User_core extends CI_Controller
             $data['email']          = $this->input->post('username_edit');
             $data['no_hp']          = $this->input->post('no_hp_edit');
             $data['password']       = $this->input->post('password_edit');
+            $data['id_role']        = $this->input->post('role_edit');
 
             $this->api->set_headers(
                 array(

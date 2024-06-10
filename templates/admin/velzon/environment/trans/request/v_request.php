@@ -117,6 +117,7 @@
                                             <th><?= getLangKey('show_req_bus_weekend_col_5'); ?></th>                                            
                                             <th><?= getLangKey('show_req_bus_weekend_col_6'); ?></th>                                            
                                             <th><?= getLangKey('show_req_bus_weekend_col_7'); ?></th>
+                                            <th><?= getLangKey('show_req_bus_weekend_col_8'); ?></th>
                                             <th>Aksi</th>                                  
                                         </tr>
                                     </thead>
@@ -129,66 +130,125 @@
                 </div><!-- end card -->
             </div><!-- end col -->
         </div><!-- end row -->
-
     </div>
 </div>
 
 <?php if (hasPermission('IN')) : ?>
     <div class="modal fade" id="modalTambah" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form autocomplete="off" method="post" data-type="save" id="form_tambah" class="needs-validation" novalidate>
-                <div class="modal-content border-0 overflow-hidden">
-                    <div class="modal-header p-3">
-                        <h4 class="card-title mb-0"><?= getLangKey('req_bus_weekend_add_modal_title'); ?></h4>
-                        <button type="button" class="btn-close tutup"></button>
+            <div class="modal-content border-0 overflow-hidden">
+                <div class="modal-header p-3">
+                    <h4 class="card-title mb-0"><?= getLangKey('req_bus_weekend_add_modal_title'); ?></h4>
+                    <button type="button" class="btn-close tutup"></button>
+                </div>
+                <div class="alert alert-warning rounded-0 mb-0">
+                    <p class="mb-0">Tanda <span class="fw-semibold">(*)</span> Wajib Diisi</p>
+                </div>
+                <div class="modal-body pb-2">                    
+                    <div class="mb-3">
+                        <label><?= getLangKey('req_bus_weekend_add_modal_label_month'); ?> <span class="text-danger">*</span></label>
+                        <input type="month" required class="form-control" placeholder="<?= getLangKey('req_bus_weekend_add_modal_label_month_plc'); ?>" data-error="<?= getLangKey('req_bus_weekend_add_modal_label_month_error'); ?>" id="month" name="month" />
+                        <div class="invalid-feedback"><?= getLangKey('req_bus_weekend_add_modal_label_month_error'); ?></div>
                     </div>
-                    <div class="alert alert-warning rounded-0 mb-0">
-                        <p class="mb-0">Tanda <span class="fw-semibold">(*)</span> Wajib Diisi</p>
+                    <div class="mb-3">
+                        <label><?= getLangKey('req_bus_weekend_add_modal_label_week'); ?> <span class="text-danger">*</span></label>
+                        <select name="week" id="week" class="form-control" required>
+                            <option>Pilih Periode Minggu</option>
+                            <option value="1">Minggu ke-1</option>
+                            <option value="2">Minggu ke-2</option>
+                            <option value="3">Minggu ke-3</option>
+                            <option value="4">Minggu ke-4</option>
+                        </select>
+                        <div class="invalid-feedback"><?= getLangKey('req_bus_weekend_add_modal_label_week_error'); ?></div>
                     </div>
-                    <div class="modal-body pb-2">                    
-                        <div class="mb-3">
-                            <label><?= getLangKey('req_bus_weekend_add_modal_label_month'); ?> <span class="text-danger">*</span></label>
-                            <input type="month" required class="form-control" placeholder="<?= getLangKey('req_bus_weekend_add_modal_label_month_plc'); ?>" data-error="<?= getLangKey('req_bus_weekend_add_modal_label_month_error'); ?>" id="month" name="month" />
-                            <div class="invalid-feedback"><?= getLangKey('req_bus_weekend_add_modal_label_month_error'); ?></div>
-                        </div>
-                        <div class="mb-3">
-                            <label><?= getLangKey('req_bus_weekend_add_modal_label_week'); ?> <span class="text-danger">*</span></label>
-                            <select name="week" id="week" class="form-control" required>
-                                <option>Pilih Periode Minggu</option>
-                                <option value="1">Minggu ke-1</option>
-                                <option value="2">Minggu ke-2</option>
-                                <option value="3">Minggu ke-3</option>
-                                <option value="4">Minggu ke-4</option>
-                            </select>
-                            <div class="invalid-feedback"><?= getLangKey('req_bus_weekend_add_modal_label_week_error'); ?></div>
-                        </div>
-                        <div class="mb-3 row" id="schedule-available">
-                            
-                        </div>
-                    </div>
-
-                    <div class="dropdown-divider"></div>
-
-                    <!-- <input class="form-control" type="text" id="id_schedule" name="id_schedule"> -->
-                    <!-- <input class="form-control" type="text" id="type_bus" name="type_bus"> -->
-                    <!-- <input class="form-control" type="text" id="total_passenger" name="total_passenger"> -->
-                    <!-- <input class="form-control" type="text" id="departure" name="departure"> -->
-                    <!-- <input class="form-control" type="text" id="arrival" name="arrival"> -->
-                    <!-- <input class="form-control" type="text" id="departure_date" name="departure_date"> -->
-                    <!-- <input class="form-control" type="text" id="departure_day" name="departure_day"> -->
-                    <!-- <input class="form-control" type="text" id="departure_time" name="departure_time"> -->
-                    <!-- <input class="form-control" type="text" id="arrival_date" name="arrival_date"> -->
-                    <!-- <input class="form-control" type="text" id="arrival_day" name="arrival_day"> -->
-                    <!-- <input class="form-control" type="text" id="arrival_time" name="arrival_time"> -->
-
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="tutup btn btn-danger font-weight-bold">Batal</button>
-                        <button type="button" class="btn btn-primary font-weight-bold" id="submit">Simpan</button>
+                    <div class="mb-3 row" id="schedule-available">                            
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 <?php endif; ?>
+
+<div class="modal fade" id="modalView" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">        
+        <!-- notes
+        return_date
+        return_day
+        return_time
+        status
+        total_passenger
+        type_bus -->
+        <div class="modal-content border-0 overflow-hidden">
+            <div class="modal-header p-3">
+                <h4 class="card-title mb-0"><?= getLangKey('request_view_modal_title'); ?></h4>
+
+                <button type="button" class="btn-close tutup"></button>
+            </div>
+            <div class="modal-body pb-2">                                                            
+                <h4>Informasi Rute</h4>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <label><?= getLangKey('schedule_number'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="text" required class="form-control " placeholder="<?= getLangKey('schedule_number'); ?>" id="schedule_number" name="schedule_number" />                                        
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <label><?= getLangKey('type_schedule_bus'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('type_schedule_bus_plc'); ?>" id="type_schedule_bus" name="type_schedule_bus" />                                        
+                    </div>                                                               
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <label><?= getLangKey('departure'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="text" required class="form-control " placeholder="<?= getLangKey('departure'); ?>" id="departure" name="departure" />                                        
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <label><?= getLangKey('arrival'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('arrival'); ?>" id="arrival" name="arrival" />                                        
+                    </div>                                                               
+                </div>         
+                <hr>         
+                <h4>Informasi Jadwal</h4>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                        <label><?= getLangKey('departure_day'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('departure_day_plc'); ?>" id="departure_day" name="departure_day" />
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                        <label><?= getLangKey('departure_date'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="date" required class="form-control" placeholder="<?= getLangKey('departure_date_plc'); ?>" id="departure_date" name="departure_date" />                                        
+                    </div>   
+                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                        <label><?= getLangKey('departure_time'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="time" required class="form-control" placeholder="<?= getLangKey('departure_time_plc'); ?>" id="departure_time" name="departure_time" />                                        
+                    </div>                             
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                        <label><?= getLangKey('return_day'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('return_day_plc'); ?>" id="return_day" name="return_day" />
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                        <label><?= getLangKey('return_date'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="date" required class="form-control" placeholder="<?= getLangKey('return_date_plc'); ?>" id="return_date" name="return_date" />                                        
+                    </div>   
+                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                        <label><?= getLangKey('return_time'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="time" required class="form-control" placeholder="<?= getLangKey('return_time_plc'); ?>" id="return_time" name="return_time" />                                        
+                    </div>                             
+                </div>
+                <div class="dropdown-divider p-2"></div>   
+                <h4>Data Penumpang</h4>
+                <div id="data-passenger" class="row"></div>
+                <div class="dropdown-divider p-2"></div>                                
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3 px-3">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-warning btn-icon waves-effect waves-light tombolEdit"><i class="ri-edit-2-fill"></i></button>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

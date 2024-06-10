@@ -1,3 +1,7 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css">
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+
 <div class="page-content">
     <div class="container-fluid">
 
@@ -26,7 +30,7 @@
             <div class="col-sm">
                 <div class="d-flex justify-content-sm-first gap-2">
 
-                    <div class="">
+                    <!-- <div class="">
                         <select class="form-select w-2 ml-2" id="tableLength">
                             <option value="10">10</option>
                             <option value="25">25</option>
@@ -34,7 +38,7 @@
                             <option value="100">100</option>
                             <option value="-1">All</option>
                         </select>
-                    </div>
+                    </div> -->
 
                     <div class="search-box ms-2">
                         <input type="text" class="form-control" id="tableSearch" placeholder="Cari...">
@@ -74,7 +78,7 @@
 
                             <div class="ml-auto d-none d-sm-none d-md-block">
                                 <div class="input-group">
-                                    <button type="button" class="btn btn-danger btn-label previous">
+                                    <!-- <button type="button" class="btn btn-danger btn-label previous">
                                         <i class="ri-arrow-left-s-line label-icon align-middle fs-16 me-2"></i>
                                         Previous
                                     </button>
@@ -82,7 +86,7 @@
                                     <button type="button" class="btn btn-danger btn-label right next rounded-end">
                                         <i class="ri-arrow-right-s-line label-icon align-middle fs-16 ms-2"></i>
                                         Next
-                                    </button>
+                                    </button> -->
                                     <!-- <button type="button" class="btn btn-secondary btn-label rounded-start ms-1">
                                         <i class="ri-filter-line label-icon align-middle fs-16 me-2"></i>
                                         Filter
@@ -110,7 +114,8 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="live-preview">
+                        <div class="live-preview" style="width:100%">
+
                             <div class="table-responsive table-card">
                                 <table class="table align-middle table-nowrap mb-0" style="margin-top: 0px !important;" id="AsTable">
                                     <thead class="table-light">
@@ -158,12 +163,12 @@
                         </div>
                         <div class="mb-3">
                             <label><?= getLangKey('user_add_modal_label_username'); ?> <span class="text-danger">*</span></label>
-                            <input type="text" required class="form-control" placeholder="<?= getLangKey('user_add_modal_label_username_plc'); ?>" data-error="<?= getLangKey('user_add_modal_label_username_error'); ?>" id="username" name="username" />
+                            <input autocomplete="nope" type="text" required class="form-control" placeholder="<?= getLangKey('user_add_modal_label_username_plc'); ?>" data-error="<?= getLangKey('user_add_modal_label_username_error'); ?>" id="username" name="username" />
                             <div class="invalid-feedback"><?= getLangKey('user_add_modal_label_username_error'); ?></div>
                         </div>
                         <div class="mb-3">
                             <label><?= getLangKey('user_add_modal_label_password'); ?> <span class="text-danger">*</span></label>
-                            <input type="password" required class="form-control" placeholder="<?= getLangKey('user_add_modal_label_password_plc'); ?>" data-error="<?= getLangKey('user_add_modal_label_password_error'); ?>" id="password" name="password" />
+                            <input autocomplete="off" type="password" required class="form-control" placeholder="<?= getLangKey('user_add_modal_label_password_plc'); ?>" data-error="<?= getLangKey('user_add_modal_label_password_error'); ?>" id="password" name="password" />
                             <div class="invalid-feedback"><?= getLangKey('user_add_modal_label_password_error'); ?></div>
                         </div>
                         <div class="mb-3">

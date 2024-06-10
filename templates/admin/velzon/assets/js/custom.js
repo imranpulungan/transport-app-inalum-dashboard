@@ -37,20 +37,6 @@ var ExAl = {
                 btn: "Ya, Hapus"
             }
 
-            var _ = (e) => Object.prototype.hasOwnProperty.call(a, e),
-                p = {},
-                X = (e) => {
-                    for (const n in a) {
-                        if (e[n]) {
-                            p[n] = e[n]
-                        } else {
-                            p[n] = a[n]
-                        }
-                    }
-                    return p
-                },
-                y = X(option);
-
             Swal.fire({
                 position: 'top',
                 html: '<div class="mt-3"><lord-icon src="' + y.icon + '" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width:120px;height:120px"></lord-icon><div class="mt-4 pt-2 fs-15"><h4>' + y.header + '</h4><p class="text-muted mx-4 mb-0">' + y.body + '</p></div></div>',

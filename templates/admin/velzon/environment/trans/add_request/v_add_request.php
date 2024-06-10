@@ -102,15 +102,8 @@ fieldset{
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <fieldset>
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                                        <label><?= getLangKey('departure'); ?> <span class="text-danger">*</span></label>
-                                        <input readonly type="text" required class="form-control " placeholder="<?= getLangKey('departure'); ?>" id="departure" name="departure" />                                        
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                                        <label><?= getLangKey('arrival'); ?> <span class="text-danger">*</span></label>
-                                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('arrival_plc'); ?>" id="arrival" name="arrival" />
-                                    </div>       
-                                                        
+                                    <input type="hidden" required class="form-control" id="departure_code" name="departure_code" />
+                                    <input type="hidden" required class="form-control" id="arrival_code" name="arrival_code" />
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
@@ -120,26 +113,52 @@ fieldset{
                                     <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
                                         <label><?= getLangKey('type_schedule_bus'); ?> <span class="text-danger">*</span></label>
                                         <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('type_schedule_bus_plc'); ?>" id="type_schedule_bus" name="type_schedule_bus" />                                        
-                                    </div>       
-                                                        
+                                    </div>                                                               
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                                        <label><?= getLangKey('departure_day'); ?> <span class="text-danger">*</span></label>
-                                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('departure_day_plc'); ?>" id="departure_day" name="departure_day" />                                        
+                                        <label><?= getLangKey('departure'); ?> <span class="text-danger">*</span></label>
+                                        <input readonly type="text" required class="form-control " placeholder="<?= getLangKey('departure'); ?>" id="departure" name="departure" />                                        
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                                        <label><?= getLangKey('arrival'); ?> <span class="text-danger">*</span></label>
+                                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('arrival'); ?>" id="arrival" name="arrival" />                                        
+                                    </div>                                                               
+                                </div>         
+                                <hr>                       
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                                        <label><?= getLangKey('departure_day'); ?> <span class="text-danger">*</span></label>
+                                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('departure_day_plc'); ?>" id="departure_day" name="departure_day" />
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
                                         <label><?= getLangKey('departure_date'); ?> <span class="text-danger">*</span></label>
                                         <input readonly type="date" required class="form-control" placeholder="<?= getLangKey('departure_date_plc'); ?>" id="departure_date" name="departure_date" />                                        
+                                    </div>   
+                                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                                        <label><?= getLangKey('departure_time'); ?> <span class="text-danger">*</span></label>
+                                        <input readonly type="time" required class="form-control" placeholder="<?= getLangKey('departure_time_plc'); ?>" id="departure_time" name="departure_time" />                                        
                                     </div>                             
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                                        <label><?= getLangKey('departure_time'); ?> <span class="text-danger">*</span></label>
-                                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('departure_time_plc'); ?>" id="departure_time" name="departure_time" />                                        
+                                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                                        <label><?= getLangKey('return_day'); ?> <span class="text-danger">*</span></label>
+                                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('return_day_plc'); ?>" id="return_day" name="return_day" />
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                                        <label><?= getLangKey('return_date'); ?> <span class="text-danger">*</span></label>
+                                        <input readonly type="date" required class="form-control" placeholder="<?= getLangKey('return_date_plc'); ?>" id="return_date" name="return_date" />                                        
+                                    </div>      
+                                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                                        <label><?= getLangKey('return_time'); ?> <span class="text-danger">*</span></label>
+                                        <input readonly type="time" required class="form-control" placeholder="<?= getLangKey('return_time_plc'); ?>" id="return_time" name="return_time" />                                        
+                                    </div>                        
+                                </div>
+
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
                                         <div class="form-group">
                                             <label><?= getLangKey('total_passenger'); ?> <span class="text-danger">*</span></label>
                                             <select name="total_passenger" id="total_passenger" class="form-control">
@@ -176,7 +195,7 @@ fieldset{
                                 </div>
                                 <div class="f1-buttons">
                                     <button type="button" class="btn btn-warning btn-previous"><i class="fa fa-arrow-left"></i> Sebelumnya</button>
-                                    <button type="button" class="btn btn-primary btn-next">Selanjutnya <i class="fa fa-arrow-right"></i></button>
+                                    <button id="btn-request" type="button" class="btn btn-primary">Request Sekarang</button>
                                 </div>
                             </fieldset>
                         </div>
@@ -215,8 +234,11 @@ fieldset{
                         <div class="invalid-feedback"><?= getLangKey('passenger_modal_input_age_error'); ?></div>
                     </div> 
                     <div class="mb-3">
-                        <label><?= getLangKey('passenger_modal_input_gender'); ?> <span class="text-danger">*</span></label>
-                        <input type="text" required class="form-control" placeholder="<?= getLangKey('passenger_modal_input_gender_plc'); ?>" data-error="<?= getLangKey('passenger_modal_input_gender_error'); ?>" id="input_gender" name="input_gender" />
+                        <label><?= getLangKey('passenger_modal_input_gender'); ?> <span class="text-danger">*</span></label>                        
+                        <select name="input_gender" id="input_gender" class="form-control">
+                            <option value="Pria">Pria</option>
+                            <option value="Wanita">Wanita</option>                            
+                        </select>
                         <div class="invalid-feedback"><?= getLangKey('passenger_modal_input_gender_error'); ?></div>
                     </div>                      
                     <div class="mb-3">
@@ -226,7 +248,8 @@ fieldset{
                     </div>
                     <div class="mb-3">
                         <label><?= getLangKey('passenger_modal_input_seat'); ?> <span class="text-danger">*</span></label>
-                        <input type="text" required class="form-control" placeholder="<?= getLangKey('passenger_modal_input_seat_plc'); ?>" data-error="<?= getLangKey('passenger_modal_input_seat_error'); ?>" id="input_seat" name="input_seat" />
+                        <!-- <input type="text" required class="form-control" placeholder="<?= getLangKey('passenger_modal_input_seat_plc'); ?>" data-error="<?= getLangKey('passenger_modal_input_seat_error'); ?>" id="input_seat" name="input_seat" /> -->
+                        <select name="input_seat" id="input_seat" class="form-control"></select>
                         <div class="invalid-feedback"><?= getLangKey('passenger_modal_input_seat_error'); ?></div>
                     </div>
                 </div>

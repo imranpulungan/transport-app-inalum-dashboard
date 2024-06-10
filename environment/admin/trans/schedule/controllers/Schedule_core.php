@@ -69,7 +69,7 @@ class Schedule_core extends CI_Controller
         } else {
             error_404();
         }
-    }
+    }    
 
     public function add()
     {
@@ -81,10 +81,7 @@ class Schedule_core extends CI_Controller
             $data['departure_date']     =  $this->input->post('departure_date');
             $data['departure_day']      =  $this->input->post('departure_day');            
             $data['departure_time']     =  $this->input->post('departure_time');
-            $data['arrival_date']       =  $this->input->post('arrival_date');
-            $data['arrival_day']        =  $this->input->post('arrival_day');
-            $data['arrival_time']       =  $this->input->post('arrival_time');
-
+                        
             $this->api->set_headers(
                 array(
                     'X-API-TOKEN:' . getEnvi('API_TOKEN'),
@@ -121,9 +118,9 @@ class Schedule_core extends CI_Controller
             $data['departure_date']     =  $this->input->post('departure_date');
             $data['departure_day']      =  $this->input->post('departure_day');            
             $data['departure_time']     =  $this->input->post('departure_time');
-            $data['arrival_date']       =  $this->input->post('arrival_date');
-            $data['arrival_day']        =  $this->input->post('arrival_day');
-            $data['arrival_time']       =  $this->input->post('arrival_time');         
+            $data['return_date']       =  $this->input->post('return_date');
+            $data['return_day']        =  $this->input->post('return_day');
+            $data['return_time']       =  $this->input->post('return_time');         
             
             $this->api->set_headers(
                 array(

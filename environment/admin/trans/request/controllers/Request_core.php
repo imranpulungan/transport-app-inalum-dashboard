@@ -82,22 +82,56 @@ class Request_core extends CI_Controller
                 'X-APP-KEY:' . getEnvi('API_APP_KEY'),
                 'Authorization:' . getSession('token')
             );
-            echo base64_encode($this->api->getData(getEnvi('schema') . '/trans/schedule/available?month='.$month.'&week='.$week.'&year='.$year, null, false, $headers));
+            echo base64_encode($this->api->getData(getEnvi('schema') . '/trans/trip_bus/available?month='.$month.'&week='.$week.'&year='.$year, null, false, $headers));
         // } else {
         //     error_404();
         // }
     }    
 
-    public function detail()
+    public function detailschedule()
     {
         // if ($this->input->post('scrty') == true && hasOwnProgram()) {
-            $schedule_number = $this->input->get('schedule_number');            
+            // $schedule_number = $this->input->post('schedule_number');            
+            $id_trip = $this->input->post('id_trip');            
+
             $headers = array(
                 'X-API-TOKEN:' . getEnvi('API_TOKEN'),
                 'X-APP-KEY:' . getEnvi('API_APP_KEY'),
                 'Authorization:' . getSession('token')
             );
-            echo base64_encode($this->api->getData(getEnvi('schema') . '/trans/schedule/detail?schedule_number='.$schedule_number, null, false, $headers));
+            // echo base64_encode($this->api->getData(getEnvi('schema') . '/trans/trip_bus/detail?schedule_number='.$schedule_number, null, false, $headers));
+            echo base64_encode($this->api->getData(getEnvi('schema') . '/trans/trip_bus/detail?id_trip='.$id_trip, null, false, $headers));
+        // } else {
+        //     error_404();
+        // }
+    }   
+    
+    public function seat()
+    {
+        // if ($this->input->post('scrty') == true && hasOwnProgram()) {
+            $id_trip = $this->input->post('id_trip');            
+            $headers = array(
+                'X-API-TOKEN:' . getEnvi('API_TOKEN'),
+                'X-APP-KEY:' . getEnvi('API_APP_KEY'),
+                'Authorization:' . getSession('token')
+            );
+            echo base64_encode($this->api->getData(getEnvi('schema') . '/trans/seat/available?id_trip='.$id_trip, null, false, $headers));
+        // } else {
+        //     error_404();
+        // }
+    }
+
+    public function detail()
+    {
+        // if ($this->input->post('scrty') == true && hasOwnProgram()) {
+            $id_request = $this->input->post('id_request');            
+            
+            $headers = array(
+                'X-API-TOKEN:' . getEnvi('API_TOKEN'),
+                'X-APP-KEY:' . getEnvi('API_APP_KEY'),
+                'Authorization:' . getSession('token')
+            );
+            echo $this->api->getData(getEnvi('schema') . '/trans/request_bus?id_request='.$id_request, null, false, $headers);
         // } else {
         //     error_404();
         // }
@@ -131,7 +165,7 @@ class Request_core extends CI_Controller
                 'file' => 'add_request'
             ];
 
-            $this->view['schedule_number'] = $_GET['schedule_number'];
+            $this->view['id_trip'] = $_GET['id_trip'];
 
 
             loadTemplate('layout', $this->view);
@@ -173,20 +207,22 @@ class Request_core extends CI_Controller
     public function insert()
     {
         if ($this->input->post('scrty') == true && hasOwnProgram()) {            
-            $data = [
-                "type_bus" => $this->input->post('type_schedule_bus'),
-                "departure_date" => $this->input->post('departure_date'),
-                "departure_day" => $this->input->post('departure_day'),                
-                "total_passenger" => $this->input->post('total_passenger'),
-                "schedule_number" => $this->input->post('schedule_number'),
-                "departure" => $this->input->post('departure'),
-                "arrival" => $this->input->post('arrival'),
-                "departure_time" => $this->input->post('departure_time'),
-                "arrival_date" => $this->input->post('arrival_date'),
-                "arrival_day" => $this->input->post('arrival_day'),
-                "arrival_time" => $this->input->post('arrival_time'),
-            ];
-
+            $data["type_bus"]           = $this->input->post('type_bus');
+            $data["id_trip"]            = $this->input->post('id_trip');
+            $data["departure_date"]     = $this->input->post('departure_date');
+            $data["departure_day"]      = $this->input->post('departure_day');
+            $data["total_passenger"]    = $this->input->post('total_passenger');
+            $data["schedule_number"]    = $this->input->post('schedule_number');
+            $data["departure"]          = $this->input->post('departure');
+            $data["arrival"]            = $this->input->post('arrival');
+            $data["departure_code"]     = $this->input->post('departure_code');
+            $data["arrival_code"]       = $this->input->post('arrival_code');
+            $data["departure_time"]     = $this->input->post('departure_time');
+            $data["return_date"]       = $this->input->post('return_date');
+            $data["return_day"]        = $this->input->post('return_day');
+            $data["return_time"]       = $this->input->post('return_time');
+            $data["passengers"]         = json_encode($this->input->post('passengers'));
+            
             $this->api->set_headers(
                 array(
                     'X-API-TOKEN:' . getEnvi('API_TOKEN'),
@@ -195,18 +231,19 @@ class Request_core extends CI_Controller
                 )
             );            
 
-            $result = $this->api->post(getEnvi('schema') . '/trans/request_bus', $data, true);               
+            $result = $this->api->post(getEnvi('schema') . '/trans/request_bus', $data, true);
+
             if (isset($result->success) && $result->success) {
                 echo json_encode([
                     'status' => true,
-                    'header' => getLangKey('asset_add_success_header'),
-                    'message' => getLangKey('asset_add_success_message')
+                    'header' => getLangKey('req_bus_weekend_add_success_header'),
+                    'message' => getLangKey('req_bus_weekend_add_success_message')
                 ]);
             } else {
                 echo json_encode([
                     'status' => false,
-                    'header' => getLangKey('asset_add_failed_header'),
-                    'message' => $result->error
+                    'header' => getLangKey('req_bus_weekend_add_failed_header'),
+                    'message' => getLangKey('req_bus_weekend_add_failed_message: Data Permintaan Gagal Disimpan.')
                 ]);
             }
         } else {
@@ -217,19 +254,85 @@ class Request_core extends CI_Controller
     public function delete()
     {
         if ($this->input->post('scrty') == true && hasOwnProgram()) {
-            $data['id_revaluation'] = $this->input->post('id_revaluation');            
-            $result = $this->api->delete(getEnvi('schema') . '/trans/revaluation', $data, true);
+            $data['ticket_number'] = $this->input->post('ticket_number');            
+            $result = $this->api->delete(getEnvi('schema') . '/trans/request_bus', $data, true);
             if (isset($result->success) && $result->success) {
                 echo json_encode([
                     'status' => true,
-                    'header' => getLangKey('revaluation_delete_success_header'),
-                    'message' => getLangKey('revaluation_delete_success_message')
+                    'header' => getLangKey('req_bus_weekend_delete_success_header'),
+                    'message' => getLangKey('req_bus_weekend_delete_success_message')
                 ]);
             } else {
                 echo json_encode([
                     'status' => false,
-                    'header' => getLangKey('revaluation_delete_failed_header'),
-                    'message' => getLangKey('revaluation_delete_failed_message')
+                    'header' => getLangKey('req_bus_weekend_delete_failed_header'),
+                    'message' => getLangKey('req_bus_weekend_delete_failed_message')
+                ]);
+            }
+        } else {
+            error_404();
+        }
+    }
+
+    public function denied()
+    {
+        if ($this->input->post('scrty') == true && hasOwnProgram()) {
+            $data['id_request'] = $this->input->post('id_request');            
+            $data['notes']      = $this->input->post('notes');     
+            
+            $this->api->set_headers(
+                array(
+                    'X-API-TOKEN:' . getEnvi('API_TOKEN'),
+                    'X-APP-KEY:' . getEnvi('API_APP_KEY'),
+                    'Authorization:' . getSession('token'),
+                )
+            );            
+            $result = $this->api->put(getEnvi('schema') . '/trans/request_bus/denied', $data, true);
+            
+            if (isset($result->success) && $result->success) {
+                echo json_encode([
+                    'status' => true,
+                    'header' => getLangKey('req_bus_weekend_edit_success_header'),
+                    'message' => getLangKey('req_bus_weekend_edit_success_message')
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => false,
+                    'header' => getLangKey('req_bus_weekend_edit_failed_header'),
+                    'message' => getLangKey('req_bus_weekend_edit_failed_message')
+                ]);
+            }
+        } else {
+            error_404();
+        }
+    }
+
+    public function approve()
+    {
+        if ($this->input->post('scrty') == true && hasOwnProgram()) {
+            $data['id_request'] = $this->input->post('id_request');            
+            $data['notes']      = $this->input->post('notes');     
+            
+            $this->api->set_headers(
+                array(
+                    'X-API-TOKEN:' . getEnvi('API_TOKEN'),
+                    'X-APP-KEY:' . getEnvi('API_APP_KEY'),
+                    'Authorization:' . getSession('token'),
+                )
+            );            
+            $result = $this->api->put(getEnvi('schema') . '/trans/request_bus/approve', $data, true);
+            
+            if (isset($result->success) && $result->success) {
+                echo json_encode([
+                    'status' => true,
+                    'header' => getLangKey('req_bus_weekend_edit_success_header'),
+                    'message' => getLangKey('req_bus_weekend_edit_success_message')
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => false,
+                    'header' => getLangKey('req_bus_weekend_edit_failed_header'),
+                    'message' => getLangKey('req_bus_weekend_edit_failed_message')
                 ]);
             }
         } else {

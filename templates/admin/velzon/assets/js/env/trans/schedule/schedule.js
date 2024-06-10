@@ -334,7 +334,7 @@ var ExAsUser = (function() {
     var updateClickTrigger = function() {
         $("table tbody").on("click", ".tombolEdit", function() {
             var drop = tb.row($(this).parents("tr")).data();
-            $('#schedule_number').val(drop.schedule_number);
+            $('#edit_schedule_number').val(drop.schedule_number);
             $('#edit_type_schedule_bus').val(drop.type_schedule_bus).change();
             $('#edit_departure').val(drop.departure);
             $('#edit_departure_date').val(drop.departure_date);
@@ -342,9 +342,9 @@ var ExAsUser = (function() {
             $('#edit_departure_time').val(drop.departure_time);
 
             $('#edit_arrival').val(drop.arrival);
-            $('#edit_arrival_date').val(drop.arrival_date);
-            $('#edit_arrival_day').val(drop.arrival_day);
-            $('#edit_arrival_time').val(drop.arrival_time);
+            $('#edit_return_date').val(drop.return_date);
+            $('#edit_return_day').val(drop.return_day);
+            $('#edit_return_time').val(drop.return_time);
 
             ExAl.Modal.Show('#modalEdit');
         });
@@ -434,17 +434,17 @@ var ExAsUser = (function() {
         if (value != 'HOLIDAY') {
             $('input[type="date"]').prop('disabled', true);
             $('#departure_day').prop('disabled', false);
-            $('#arrival_day').prop('disabled', false);            
+            $('#return_day').prop('disabled', false);            
 
             $('#edit_departure_day').prop('disabled', false);
-            $('#edit_arrival_day').prop('disabled', false);            
+            $('#edit_return_day').prop('disabled', false);            
         } else {
             $('input[type="date"]').prop('disabled', false);
             $('#departure_day').prop('disabled', true);
-            $('#arrival_day').prop('disabled', true);
+            $('#return_day').prop('disabled', true);
 
             $('#edit_departure_day').prop('disabled', true);
-            $('#edit_arrival_day').prop('disabled', true);            
+            $('#edit_return_day').prop('disabled', true);            
         }        
     }
 
