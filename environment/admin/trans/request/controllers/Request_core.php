@@ -206,7 +206,8 @@ class Request_core extends CI_Controller
 
     public function insert()
     {
-        if ($this->input->post('scrty') == true && hasOwnProgram()) {            
+        if ($this->input->post('scrty') == true && hasOwnProgram()) {                        
+            $data["id_user"]            = $this->input->post('id_user');
             $data["type_bus"]           = $this->input->post('type_bus');
             $data["id_trip"]            = $this->input->post('id_trip');
             $data["departure_date"]     = $this->input->post('departure_date');
@@ -218,9 +219,9 @@ class Request_core extends CI_Controller
             $data["departure_code"]     = $this->input->post('departure_code');
             $data["arrival_code"]       = $this->input->post('arrival_code');
             $data["departure_time"]     = $this->input->post('departure_time');
-            $data["return_date"]       = $this->input->post('return_date');
-            $data["return_day"]        = $this->input->post('return_day');
-            $data["return_time"]       = $this->input->post('return_time');
+            $data["return_date"]        = $this->input->post('return_date');
+            $data["return_day"]         = $this->input->post('return_day');
+            $data["return_time"]        = $this->input->post('return_time');
             $data["passengers"]         = json_encode($this->input->post('passengers'));
             
             $this->api->set_headers(
@@ -338,6 +339,21 @@ class Request_core extends CI_Controller
         } else {
             error_404();
         }
+    }
+
+    public function finduser()
+    {
+        // if ($this->input->post('scrty') == true && hasOwnProgram()) {
+            $username = $this->input->post('username');            
+            $headers = array(
+                'X-API-TOKEN:' . getEnvi('API_TOKEN'),
+                'X-APP-KEY:' . getEnvi('API_APP_KEY'),
+                'Authorization:' . getSession('token')
+            );
+            echo $this->api->getData(getEnvi('schema') . '/master/user/find?query='.$username, null, false, $headers);
+        // } else {
+        //     error_404();
+        // }
     }
 }
 

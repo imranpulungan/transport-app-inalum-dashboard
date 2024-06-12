@@ -103,6 +103,7 @@ class User_core extends CI_Controller
             $data['no_hp']          = $this->input->post('no_hp');
             $data['password']       = $this->input->post('password');
             $data['id_role']        = $this->input->post('role');
+            $data['id_seksi']          = $this->input->post('seksi');
             
             $this->api->set_headers(
                 array(
@@ -141,6 +142,8 @@ class User_core extends CI_Controller
             $data['no_hp']          = $this->input->post('no_hp_edit');
             $data['password']       = $this->input->post('password_edit');
             $data['id_role']        = $this->input->post('role_edit');
+            $data['id_seksi']          = $this->input->post('seksi');
+            
 
             $this->api->set_headers(
                 array(

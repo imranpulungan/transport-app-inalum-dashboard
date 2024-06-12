@@ -128,6 +128,7 @@
                                             <th><?= getLangKey('show_user_col_6'); ?></th>
                                             <th><?= getLangKey('show_user_col_7'); ?></th>
                                             <th><?= getLangKey('show_user_col_8'); ?></th>
+                                            <th><?= getLangKey('show_user_col_9'); ?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -181,6 +182,11 @@
                             <select class="form-control select2 selectRole" required style="width: 100%" id="role" name="role"></select>
                             <div class="invalid-feedback"><?= getLangKey('user_add_modal_label_role_error'); ?></div>
                         </div>
+                        <div class="mb-3">
+                            <label><?= getLangKey('user_add_modal_label_seksi'); ?> <span class="text-danger">*</span></label>
+                            <select class="form-control select2" style="width: 100%" id="seksi" name="seksi"></select>
+                            <div class="invalid-feedback"><?= getLangKey('user_add_modal_label_seksi_error'); ?></div>
+                        </div>                        
                     </div>
                     <div class="dropdown-divider"></div>
                     <!-- <div class="modal-body pt-1">
@@ -233,6 +239,11 @@
                             <label><?= getLangKey('user_edit_modal_label_role'); ?> <span class="text-danger">*</span></label>
                             <select class="form-control select2 selectRole" required style="width: 100%" id="role_edit" name="role_edit"></select>
                             <div class="invalid-feedback"><?= getLangKey('user_edit_modal_label_role_error'); ?></div>
+                        </div>
+                        <div class="mb-3">
+                            <label><?= getLangKey('user_edit_modal_label_seksi'); ?> <span class="text-danger">*</span></label>
+                            <select class="form-control select2" style="width: 100%" id="seksi_edit" name="seksi"></select>
+                            <div class="invalid-feedback"><?= getLangKey('user_edit_modal_label_seksi_error'); ?></div>
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>

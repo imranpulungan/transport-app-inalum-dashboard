@@ -200,4 +200,8 @@ asset_edit_add
 trip_number_plc
 bus_number
 bus_number_plc
+seksi_add_modal_label_kuota
+seksi_add_modal_label_kuota_plc
+seksi_add_modal_label_kuota_error
+id_user
 

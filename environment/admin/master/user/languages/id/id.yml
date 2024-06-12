@@ -6,8 +6,9 @@ show_user_col_3: Username
 show_user_col_4: Email
 show_user_col_5: No. Handphone
 show_user_col_6: Role
-show_user_col_7: Status
-show_user_col_8: Aksi
+show_user_col_7: Seksi
+show_user_col_8: Status
+show_user_col_9: Aksi
 
 hide_user_col_1: UID User
 hide_user_col_2: Username

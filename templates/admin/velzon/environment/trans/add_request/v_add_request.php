@@ -160,6 +160,16 @@ fieldset{
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
                                         <div class="form-group">
+                                            <label for="search-user">Cari Pengguna</label>
+                                            <div class="input-group">             
+                                                <input autocomplete="off" name="search-user" id="search-user" type="text" class="form-control">
+                                            </div>
+                                            <div id="list-user" class="d-none list-group"></div>
+                                            <input type="hidden" name="id_user" id="id_user"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                                        <div class="form-group">
                                             <label><?= getLangKey('total_passenger'); ?> <span class="text-danger">*</span></label>
                                             <select name="total_passenger" id="total_passenger" class="form-control">
                                                 <option value="1">1 Penumpang</option>

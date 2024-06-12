@@ -10,6 +10,15 @@ var ExAsUser = (function() {
     var MoDaD = ExAs.m0d(m0d);
     var seatAvailable;
     var indexWizard = 0;
+
+    var debounce = function(func, timeout = 1000){
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        };
+    }
+    
     // Form
     $('.f1 fieldset:first').fadeIn('slow');
     
@@ -101,6 +110,7 @@ var ExAsUser = (function() {
             method: "POST",
             data: {
                 id_trip: idTrip,
+                id_user: $("#id_user").val(),
                 schedule_number : $("#schedule_number").val(),
                 type_bus : $("#type_schedule_bus").val(),
                 total_passenger : $("#total_passenger").val(),
@@ -124,8 +134,7 @@ var ExAsUser = (function() {
                     if (res.status) {                        
                         ExAl.Toast.Success(res.header, res.message, function(result) {
                             if (result.isDismissed) {
-                                // loadData();
-                                // ExAl.Modal.Close('#modalTambah', true);
+                                window.location = e3nCeL0t + MAIN;
                             }
                         });
                     } else {
@@ -138,6 +147,34 @@ var ExAsUser = (function() {
             },
         });
     });    
+
+    $('#search-user').keyup(debounce(function(){            
+        $("#list-user").addClass('d-none');
+        
+        var query = $('#search-user').val();
+        $.ajax({
+            url: e3nCeL0t + MoDaD + MAIN + "finduser",
+            method: "POST",
+            data: {
+                username: query,
+                scrty: true
+            },
+            success: function(response) {
+                var res = JSON.parse(response);                
+                if (!res.error) {
+                    $("#list-user").empty();
+                    $("#list-user").removeClass('d-none');
+                    res.data.forEach(element => {
+                        $("#list-user").append($(`<button onclick="chooseUser('${element.id_user}', '${element.username}', '${element.nama}')"
+                            type="button" class="list-group-item list-group-item-action">`).text(`${element.nama} (${element.username})`));                        
+                    });                    
+                } else $("#list-user").addClass('d-none');       
+            },
+            error: function(e) {    
+                $("#list-user").addClass('d-none');            
+            },
+        });
+    }));
 
     /**
      * Transaction
@@ -269,6 +306,13 @@ var ExAsUser = (function() {
 })();
 
 ExAs.Dom(ExAsUser.run())
+
+var chooseUser = function (id, username, name) {
+    console.log(id, username, name);
+    $("#list-user").addClass('d-none');
+    $("#search-user").val(`${name} (${username})`);
+    $("#id_user").val(id)
+}
 
 function checkIndexWizard(indexWizard){
     if (indexWizard == 1) {

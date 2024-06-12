@@ -640,6 +640,7 @@ var ExAsUser = (function() {
                                                                         ${element.trip_number}</div>
                                                                     </h5>
                                                                     <p class="card-text"><small class="text-muted">${element.departure_date}</small></p>
+                                                                    ${element.seat.total_seat_available} Kursi Tersedia
                                                                        
                                                                     <a href="${e3nCeL0t}${MoDaD}${MAIN}add?id_trip=${element.id_trip}&departure_date=${element.departure_date}" 
                                                                         class="btn btn-primary btn-sm" role="button" type="button">Pilih</a>

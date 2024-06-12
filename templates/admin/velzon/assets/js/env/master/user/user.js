@@ -82,7 +82,14 @@ var ExAsUser = (function() {
         },
         {
             targets: i++,
-            data: "id_role",
+            data: "nm_role",
+            render: function(data, type, full, meta) {
+                return data;
+            },
+        },
+        {
+            targets: i++,
+            data: "alias_seksi",
             render: function(data, type, full, meta) {
                 return data;
             },
@@ -237,6 +244,7 @@ var ExAsUser = (function() {
             $('#nama_edit').val(drop.nama)                    
             $('#no_hp_edit').val(drop.no_hp)                    
             $("#role_edit").val(drop.id_role).change();                    
+            $("#seksi_edit").val(drop.id_seksi).change();                    
             ExAl.Modal.Show('#modalEdit');
         });
     }
@@ -524,6 +532,32 @@ var ExAsUser = (function() {
         })
     }
 
+    var loadSeksi = function () {
+        $.ajax({
+            url: e3nCeL0t + MoDaD + MAIN + "seksi",
+            method: "POST",
+            async: false,
+            data: {
+                scrty: true
+            },
+            success: function (response) {
+                var respon = ExAs.uXvbI(response)
+                if (ExAs.Utils.Json.valid(respon)) {
+                    var res = JSON.parse(respon)
+                    var select = "";
+                    if (res.success) {
+                        select += "<option></option>";
+                        $.each(res.data, function (index, item) {
+                            select += '<option value=' + item.id_seksi + '>' + item.alias_seksi + ' - ' + item.nm_seksi + '</option>';
+                        })
+                        $('#seksi').append(select);
+                        $('#seksi_edit').append(select);
+                    }
+                }
+            }
+        })
+    }
+
     var deleteTrigger = function() {
         $("table tbody").on("click", ".tombolDelete", function() {
             var drop = tb.row($(this).parents("tr")).data();
@@ -554,16 +588,12 @@ var ExAsUser = (function() {
         });
     }    
 
-    function copyToClipboard($value) {
-        navigator.clipboard.writeText($value);        
-        alert(`Copied the text: ${$value}`);
-    }
-
     return {
         run: function() {
             search();
             tableCss();
             loadRole();
+            loadSeksi();
             Transaction();
         },
         refresh: function() { loadData() }
