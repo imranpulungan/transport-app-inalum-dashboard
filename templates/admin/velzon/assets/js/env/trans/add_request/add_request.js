@@ -1,5 +1,4 @@
 'use strict';
-
 var ExAsUser = (function() {
     const queryString   = window.location.search;
     const urlParams     = new URLSearchParams(queryString);
@@ -229,11 +228,11 @@ var ExAsUser = (function() {
                 scrty: true
             },
             success: function(response) {
-                var respon = ExAs.uXvbI(response)
+                var respon = ExAs.uXvbI(response);
                 if (ExAs.Utils.Json.valid(respon)) {
                     var res = JSON.parse(respon);
-                    if (res.data != null) {   
-                        console.log(res.data);                                             
+                    console.log(res);           
+                    if (res.data != null) {                        
                         saveLocalData("dataDeparture", {
                             schedule_number : res.data.schedule_number,
                             type_schedule_bus : res.data.type_schedule_bus,

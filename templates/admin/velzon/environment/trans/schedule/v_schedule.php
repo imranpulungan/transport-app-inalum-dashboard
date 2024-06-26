@@ -149,7 +149,7 @@
                             <label><?= getLangKey('schedule_add_modal_label_type'); ?> <span class="text-danger">*</span></label>                            
                             <select class="form-control" required style="width: 100%" id="type_schedule_bus" name="type_schedule_bus">
                                 <option value="WEEKEND">WEEKEND</option>
-                                <option value="HOLIDAY" selected>HOLIDAY</option>
+                                <!-- <option value="HOLIDAY" selected>HOLIDAY</option> -->
                             </select>
                             <div class="invalid-feedback"><?= getLangKey('schedule_add_modal_label_type_error'); ?></div>
                         </div>

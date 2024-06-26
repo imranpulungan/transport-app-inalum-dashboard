@@ -3,7 +3,7 @@
 *3. pada saat request bus melalui admin dashboard pilih pengguna atau karyawan lebih dulu
 *4. pada saat request bus melalui admin seksi pilih pengguna atau karyawan lebih dulu
 5. pastikan request pengguna lain tidak ditampilkan pada pengguna platform andorid
-6. design detail ticket fit to screen
+*6. design detail ticket fit to screen
 *7. tampilkan jumlah kursi tersedia ketika memilih jadwal trip saat pengguna mau melakukan request bus
 *8. redirect to request list after request process success
 *9. hak askes dan fitur admin seksi dari dashboard dan platform andorid
@@ -11,9 +11,9 @@
 
 request bus party
 1. 3 role user, pengguna/ admin seksi(SHO), PIC, VP
-1. pengguna hanya sho
-2. approval, 2 tingkat [PIC, VP]
-3. requester hide
+2. pengguna hanya sho
+3. approval, 2 tingkat [PIC, VP]
+3. form entry request
 4. field reason
 5. field departemen/seksi
 6. departure, departure time, departure date
@@ -21,3 +21,6 @@ request bus party
 8. input total penumpang
 9. pada saat PIC approve, tetapkan kendaraan dan total kendaraan
 10. setelah proses request selesai admin bisa tambahkan note (optional), untuk output
+
+note output request bus party (pdf)
+1. bagian requester dihapus

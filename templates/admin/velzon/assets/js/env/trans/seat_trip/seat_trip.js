@@ -48,13 +48,47 @@ var ExAsUser = (function() {
                     var res = JSON.parse(respon);
                     if (res.data != null) {           
                         
-                        var rowSeat = "";                        
+                        const maxLayout = 6;
+                        const maxNumber = 5;
+                        let rowSeat = '';
 
-                        for (let index = 1; index <= 10; index++) {
+                        for (let index = 1; index <= 11; index++) {
                             let seats = '';
-                            for (let i = 1; i <= 5; i++) {
-                                seats += `<button isavailable="false" type="button" id="cell-seat-${(index - 1) * 5 + i}" class="seat text-center text-white">${(index - 1) * 5 + i}</button>`;
+
+                            if (index == 11) {
+                                for (let i = 49; i <= 54; i++) {
+                                    let calculateIndex = i;
+                                    seats += `<button isavailable="false" type="button" id="cell-seat-${calculateIndex}" class="seat text-center text-white">${calculateIndex}</button>`;                                    
+                                }
+                            } else if (index == 10) {
+                                for (let i = maxLayout; i >= 1; i--) {
+                                    if (i < 4) {
+                                        let calculateIndex = (i > 4) ? i - 1 : i;
+                                        seats += `<button isavailable="false" type="button" id="cell-seat-${(index - 1) * maxNumber + calculateIndex}" class="seat text-center text-white">${(index - 1) * maxNumber + calculateIndex}</button>`;
+                                    } else {
+                                        seats += `<div style="width:55px; height:55px"></div>`;
+                                    }
+                                }
+                            } else if (index % 2 !== 0) {
+                                for (let i = 1; i <= maxLayout; i++) {
+                                    if (i !== 3) {
+                                        let calculateIndex = (i > 3) ? i - 1 : i;
+                                        seats += `<button isavailable="false" type="button" id="cell-seat-${(index - 1) * maxNumber + calculateIndex}" class="seat text-center text-white">${(index - 1) * maxNumber + calculateIndex}</button>`;
+                                    } else {
+                                        seats += `<div style="width:55px; height:55px"></div>`;
+                                    }
+                                }
+                            } else {
+                                for (let i = maxLayout; i >= 1; i--) {
+                                    if (i !== 4) {
+                                        let calculateIndex = (i > 4) ? i - 1 : i;
+                                        seats += `<button isavailable="false" type="button" id="cell-seat-${(index - 1) * maxNumber + calculateIndex}" class="seat text-center text-white">${(index - 1) * maxNumber + calculateIndex}</button>`;
+                                    } else {
+                                        seats += `<div style="width:55px; height:55px"></div>`;
+                                    }
+                                }
                             }
+
                             rowSeat += `<div id="row-seat-${index}" class="d-flex flex-row justify-content-center">${seats}</div>`;
                         }
                         

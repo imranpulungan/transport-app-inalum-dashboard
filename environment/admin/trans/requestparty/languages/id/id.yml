@@ -1,0 +1,78 @@
+req_bus_party: Request Bus Party
+
+show_req_bus_party_col_1: "No"
+show_req_bus_party_col_2: Nomor Request
+show_req_bus_party_col_3: Total Penumpang
+show_req_bus_party_col_4: Keberangkatan
+show_req_bus_party_col_5: Jadwal Berangkat
+show_req_bus_party_col_6: Tujuan
+show_req_bus_party_col_7: Jadwal Pulang
+show_req_bus_party_col_8: Status
+
+departure : Keberangkatan
+arrival : Tujuan
+schedule_number : Nomor Jadwal
+type_schedule_bus : Jenis Jadwal
+departure_day : Hari Keberangkatan
+departure_date : Tanggal Keberangkatan
+departure_time : Jam Berangkat
+return_day : Hari Kepulangan
+return_date : Tanggal Kepulangan
+return_time : Jam Pulang
+total_passenger : Jumlah Penumpang
+
+request_view_modal_title: "Detail Request"
+
+passenger_add_modal_title: Lengkapi Data Penumpang
+passenger_modal_label_name: Nama Penumpang
+passenger_modal_label_name_plc: Bidang isian Nama Penumpang wajib diisi.
+passenger_modal_input_age: Usia Penumpang
+passenger_modal_input_age_plc: Bidang isian Usia Penumpang wajib diisi.
+passenger_modal_input_gender: Jenis Kelamin
+passenger_modal_input_gender_plc: Bidang isian Jenis Kelamin wajib diisi.
+passenger_modal_input_relation: Hubungan Karyawan
+passenger_modal_input_relation_plc: Bidang isian Hubungan Karyawan wajib diisi.
+passenger_modal_input_seat: Nomor Kursi
+passenger_modal_input_seat_plc: Bidang isian Nomor Kursi wajib diisi.
+
+req_bus_party_btn_add : "Request Baru"
+req_bus_party_add_modal_title : "Request Bus Baru (Party)"
+req_bus_party_add_modal_label_reason : "Alasan"
+req_bus_party_add_modal_label_reason_error : "Bidang isian Alasan wajib diisi."
+req_bus_party_add_modal_label_seksi : "Seksi"
+req_bus_party_add_modal_label_seksi_error : "Bidang pilihan Seksi wajib dipilih"
+req_bus_party_add_modal_label_departure: "Lokasi Berangkat"
+req_bus_party_add_modal_label_departure_error: "Bidang isian Lokasi Berangkat wajib diisi."
+req_bus_party_add_modal_label_departure_date: "Tanggal Berangkat"
+req_bus_party_add_modal_label_departure_date_error: "Bidang isian Tanggal Berangkat wajib diisi."
+req_bus_party_add_modal_label_departure_time: "Jam Berangkat"
+req_bus_party_add_modal_label_departure_time_error: "Bidang isian Lokasi Berangkat wajib diisi."
+req_bus_party_add_modal_label_arrival: "Lokasi Tujuan"
+req_bus_party_add_modal_label_arrival_error: "Bidang isian Lokasi Tujuan wajib diisi."
+req_bus_party_add_modal_label_return_date: "Tanggal Pulang"
+req_bus_party_add_modal_label_return_date_error: "Bidang isian Tanggal Pulang wajib diisi."
+req_bus_party_add_modal_label_return_time: "Jam Pulang"
+req_bus_party_add_modal_label_return_time_error: "Bidang isian Jam Pulang wajib diisi."
+req_bus_party_add_modal_label_total_passenger: "Total Penumpang"
+req_bus_party_add_modal_label_total_passenger_error: "Bidang isian Total Penumpang wajib diisi."
+
+
+req_bus_party_add_success_header: Berhasil
+req_bus_party_add_success_message: Berhasil Menyimpan Permintaan
+req_bus_party_add_failed_header: Gagal Menyimpan Permintaan
+req_bus_party_add_failed_message: Data Permintaan Gagal Disimpan.
+
+req_bus_party_edit_success_header: Berhasil
+req_bus_party_edit_success_message: Berhasil Mengupdate Permintaan
+req_bus_party_edit_failed_header: Gagal Mengupdate Permintaan
+req_bus_party_edit_failed_message: Data Permintaan Gagal Diupdate.
+
+req_bus_party_verifikasi_success_header: Berhasil
+req_bus_party_verifikasi_success_message: Berhasil Verifikasi Permintaan
+req_bus_party_verifikasi_failed_header: Gagal Verifikasi Permintaan
+req_bus_party_verifikasi_failed_message: Data Permintaan Gagal Diverifikasi.
+
+req_bus_party_delete_success_header: Berhasil
+req_bus_party_delete_success_message: Berhasil Menghapus Permintaan
+req_bus_party_delete_failed_header: Gagal Menghapus Permintaan
+req_bus_party_delete_failed_message: Permintaan Gagal Dihapus, Dengan Kemungkinan Bahwa Permintaan Sudah Terhapus, atau Ada Kendala Koneksi.

@@ -1,0 +1,7 @@
+{
+    "require": {
+        "mikehaertl/phpwkhtmltopdf": "^2.5",
+        "pdfcrowd/pdfcrowd": "^5.20",
+        "dompdf/dompdf": "^3.0"
+    }
+}

@@ -176,6 +176,7 @@ fieldset{
                                                 <option value="2">2 Penumpang</option>
                                                 <option value="3">3 Penumpang</option>
                                                 <option value="4">4 Penumpang</option>
+                                                <option value="5">5 Penumpang</option>
                                             </select>
                                             <div class="invalid-feedback"><?= getLangKey('total_passenger_error'); ?></div>
                                         </div>
