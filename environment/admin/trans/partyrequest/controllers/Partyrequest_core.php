@@ -13,7 +13,7 @@
  * @link		http://alimstudio.com
  */
 
-class Requestparty_core extends CI_Controller
+class Partyrequest_core extends CI_Controller
 {
     private $view;
     public $data2;
@@ -181,6 +181,22 @@ class Requestparty_core extends CI_Controller
             error_404();
         }
     }
+
+    public function detail()
+    {
+        // if ($this->input->post('scrty') == true && hasOwnProgram()) {
+            $id_request = $this->input->post('id_request');            
+            
+            $headers = array(
+                'X-API-TOKEN:' . getEnvi('API_TOKEN'),
+                'X-APP-KEY:' . getEnvi('API_APP_KEY'),
+                'Authorization:' . getSession('token')
+            );
+            echo $this->api->getData(getEnvi('schema') . '/trans/request_party?id_request='.$id_request, null, false, $headers);
+        // } else {
+        //     error_404();
+        // }
+    }    
 }
 
 

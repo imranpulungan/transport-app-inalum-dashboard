@@ -21,6 +21,13 @@ return_date : Tanggal Kepulangan
 return_time : Jam Pulang
 total_passenger : Jumlah Penumpang
 
+view_departure: Keberangkatan
+view_arrival: Tujuan
+view_departure_date: Tanggal Keberangkatan
+view_departure_time: Jam Berangkat
+view_return_date: Tanggal Kepulangan
+view_return_time: Jam Pulang
+
 request_view_modal_title: "Detail Request"
 
 passenger_add_modal_title: Lengkapi Data Penumpang

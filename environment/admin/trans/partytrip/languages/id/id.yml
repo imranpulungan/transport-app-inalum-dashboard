@@ -1,0 +1,55 @@
+req_bus_weekend: Request Bus Mingguan
+
+show_trip_bus_weekend_col_1: "No"
+show_trip_bus_weekend_col_2: Nomor Jadwal
+show_trip_bus_weekend_col_3: Nomor Keberangkatan
+show_trip_bus_weekend_col_4: Kendaraan
+show_trip_bus_weekend_col_5: Rute
+show_trip_bus_weekend_col_6: Jadwal Berangkat
+show_trip_bus_weekend_col_7: Jadwal Pulang
+
+departure : Keberangkatan
+arrival : Tujuan
+schedule_number : Kode Jadwal
+type_schedule_bus : Jenis Jadwal
+departure_day : Hari Keberangkatan
+departure_date : Tanggal Keberangkatan
+departure_time : Jam Berangkat
+return_day : Hari Kepulangan
+return_day_plc : Hari Kepulangan wajib diisi
+return_date : Tanggal Kepulangan
+return_date_plc : Tanggal Kepulangan wajib diisi
+return_time : Jam Pulang
+return_time_plc : Jam Pulang wajib diisi
+total_passenger : Jumlah Penumpang
+
+request_view_modal_title: "Detail Request"
+
+trip_bus_weekend_btn_add : "Trip Baru"
+trip_bus_weekend_add_modal_title : "Trip Bus Baru (Weekend)"
+trip_bus_weekend_add_modal_label_month : "Bulan"
+trip_bus_weekend_add_modal_label_week : "Minggu ke"
+trip_number: Nomor Trip
+trip_number_plc: Nomor trip wajib diisi
+bus_number: Nomor Bus
+bus_number_plc: Nomor Bus wajib diisi
+
+req_bus_weekend_add_success_header: Berhasil
+req_bus_weekend_add_success_message: Berhasil Menyimpan Permintaan
+req_bus_weekend_add_failed_header: Gagal Menyimpan Permintaan
+req_bus_weekend_add_failed_message: Data Permintaan Gagal Disimpan.
+
+req_bus_weekend_edit_success_header: Berhasil
+req_bus_weekend_edit_success_message: Berhasil Mengupdate Permintaan
+req_bus_weekend_edit_failed_header: Gagal Mengupdate Permintaan
+req_bus_weekend_edit_failed_message: Data Permintaan Gagal Diupdate.
+
+req_bus_weekend_verifikasi_success_header: Berhasil
+req_bus_weekend_verifikasi_success_message: Berhasil Verifikasi Permintaan
+req_bus_weekend_verifikasi_failed_header: Gagal Verifikasi Permintaan
+req_bus_weekend_verifikasi_failed_message: Data Permintaan Gagal Diverifikasi.
+
+req_bus_weekend_delete_success_header: Berhasil
+req_bus_weekend_delete_success_message: Berhasil Menghapus Permintaan
+req_bus_weekend_delete_failed_header: Gagal Menghapus Permintaan
+req_bus_weekend_delete_failed_message: Permintaan Gagal Dihapus, Dengan Kemungkinan Bahwa Permintaan Sudah Terhapus, atau Ada Kendala Koneksi.

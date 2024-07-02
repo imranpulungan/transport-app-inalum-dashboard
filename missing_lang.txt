@@ -237,4 +237,16 @@ asset_edit_add
 req_bus_weekend_add_failed_header
 req_bus_party_add_modal_label_total_passenger
 req_bus_party_add_modal_label_total_passenger_error
+trip_party
+view_trip_number
+view_departure
+view_arrival
+view_departure_date
+view_departure_date_plc
+view_departure_time
+view_departure_time_plc
+view_return_date
+view_return_date_plc
+view_return_time
+view_return_time_plc
 

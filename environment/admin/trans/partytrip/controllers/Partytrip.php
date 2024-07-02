@@ -10,9 +10,9 @@
  * @author		Alimstudio
  * @link		http://alimstudio.com
  */
-require_once 'Requestparty_core.php';
+require_once 'Partytrip_core.php';
 
-class Requestparty extends Requestparty_core
+class Partytrip extends Partytrip_core
 {
 
     public function __construct()

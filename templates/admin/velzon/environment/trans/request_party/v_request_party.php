@@ -232,70 +232,56 @@
         <div class="modal-content border-0 overflow-hidden">
             <div class="modal-header p-3">
                 <h4 class="card-title mb-0"><?= getLangKey('request_view_modal_title'); ?></h4>
-
                 <button type="button" class="btn-close tutup"></button>
             </div>
-            <div class="modal-body pb-2">                                                            
+            <div class="modal-body pb-2">  
                 <h4>Informasi Rute</h4>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                        <label><?= getLangKey('schedule_number'); ?> <span class="text-danger">*</span></label>
-                        <input readonly type="text" required class="form-control " placeholder="<?= getLangKey('schedule_number'); ?>" id="schedule_number" name="schedule_number" />                                        
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
                         <label><?= getLangKey('type_schedule_bus'); ?> <span class="text-danger">*</span></label>
-                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('type_schedule_bus_plc'); ?>" id="type_schedule_bus" name="type_schedule_bus" />                                        
+                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('type_schedule_bus_plc'); ?>" id="type_schedule_bus" name="type_schedule_bus" />
+                        <input type="hidden" id="view_id_request" name="view_id_request" />
                     </div>                                                               
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                        <label><?= getLangKey('departure'); ?> <span class="text-danger">*</span></label>
-                        <input readonly type="text" required class="form-control " placeholder="<?= getLangKey('departure'); ?>" id="departure" name="departure" />                                        
+                        <label><?= getLangKey('view_departure'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="text" required class="form-control " placeholder="<?= getLangKey('view_departure'); ?>" id="view_departure" name="view_departure" />                                        
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                        <label><?= getLangKey('arrival'); ?> <span class="text-danger">*</span></label>
-                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('arrival'); ?>" id="arrival" name="arrival" />                                        
+                        <label><?= getLangKey('view_arrival'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('view_arrival'); ?>" id="view_arrival" name="view_arrival" />                                        
                     </div>                                                               
                 </div>         
                 <hr>         
                 <h4>Informasi Jadwal</h4>
-
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                        <label><?= getLangKey('departure_day'); ?> <span class="text-danger">*</span></label>
-                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('departure_day_plc'); ?>" id="departure_day" name="departure_day" />
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                        <label><?= getLangKey('departure_date'); ?> <span class="text-danger">*</span></label>
-                        <input readonly type="date" required class="form-control" placeholder="<?= getLangKey('departure_date_plc'); ?>" id="departure_date" name="departure_date" />                                        
+                        <label><?= getLangKey('view_departure_date'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="date" required class="form-control" placeholder="<?= getLangKey('view_departure_date_plc'); ?>" id="view_departure_date" name="view_departure_date" />                                        
                     </div>   
                     <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                        <label><?= getLangKey('departure_time'); ?> <span class="text-danger">*</span></label>
-                        <input readonly type="time" required class="form-control" placeholder="<?= getLangKey('departure_time_plc'); ?>" id="departure_time" name="departure_time" />                                        
+                        <label><?= getLangKey('view_departure_time'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="time" required class="form-control" placeholder="<?= getLangKey('view_departure_time_plc'); ?>" id="view_departure_time" name="view_departure_time" />                                        
                     </div>                             
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                        <label><?= getLangKey('return_day'); ?> <span class="text-danger">*</span></label>
-                        <input readonly type="text" required class="form-control" placeholder="<?= getLangKey('return_day_plc'); ?>" id="return_day" name="return_day" />
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                        <label><?= getLangKey('return_date'); ?> <span class="text-danger">*</span></label>
-                        <input readonly type="date" required class="form-control" placeholder="<?= getLangKey('return_date_plc'); ?>" id="return_date" name="return_date" />                                        
+                        <label><?= getLangKey('view_return_date'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="date" required class="form-control" placeholder="<?= getLangKey('view_return_date_plc'); ?>" id="view_return_date" name="view_return_date" />                                        
                     </div>   
                     <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
-                        <label><?= getLangKey('return_time'); ?> <span class="text-danger">*</span></label>
-                        <input readonly type="time" required class="form-control" placeholder="<?= getLangKey('return_time_plc'); ?>" id="return_time" name="return_time" />                                        
+                        <label><?= getLangKey('view_return_time'); ?> <span class="text-danger">*</span></label>
+                        <input readonly type="time" required class="form-control" placeholder="<?= getLangKey('view_return_time_plc'); ?>" id="view_return_time" name="view_return_time" />                                        
                     </div>                             
-                </div>
-                <div class="dropdown-divider p-2"></div>   
-                <h4>Data Penumpang</h4>
-                <div id="data-passenger" class="row"></div>
+                </div>                
                 <div class="dropdown-divider p-2"></div>                                
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-12 mb-3 px-3">
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-warning btn-icon waves-effect waves-light tombolEdit"><i class="ri-edit-2-fill"></i></button>                            
+                            <button type="button" class="btn btn-success waves-effect waves-light tombolApprovedVP">
+                                <i class="la la-list-alt"></i> APPROVE BY VP
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -2,9 +2,7 @@
 
 var ExAsUser = (function() {
     var idTable = "#AsTable";
-    var MAIN = 'trans/partyrequest/';
-    var MAIN_TRIP = 'trans/partytrip/';
-    var MAIN_SEKSI = 'master/user/';
+    var MAIN = 'trans/partytrip/';
     var e3nCeL0t = ExAs.uXvbI(uXvbI);
     var MoDaD = ExAs.m0d(m0d);
     var tableApi, modal_header;
@@ -43,48 +41,38 @@ var ExAsUser = (function() {
         },
         columnDefs: [{
                 targets: i++,
-                width: "1%",
-                data: "id_request"
+                // width: "1%",
+                data: "trip_number"
             },
             {
                 targets: i++,
-                data: "total_passenger"
+                data: "reason_usage"
             },
             {
                 targets: i++,
-                data: "departure",
-                render: function(data, type, full, meta) {
-                    return data;
-                },
+                data: "vehicle",                
             },
             {
                 targets: i++,
-                data: null,
-                render: function(data, type, full, meta) {
-                    return `${data.departure_date}, ${data.departure_time}`;
-                }
-            },
-            {
-                targets: i++,
-                data: "arrival",
-                render: function(data, type, full, meta) {
-                    return data;
-                },
-            },
-            {
-                targets: i++,
-                data: null,
-                render: function(data, type, full, meta) {
-                    return `${data.return_date}, ${data.return_time}`;
+                data: null,                
+                render: function(data){
+                    return `${data.departure} -> ${data.arrival}`
                 }
             },
             {
                 targets: i++,
                 data: null,
                 render: function(data, type, full, meta) {
-                    return `${data.status}<br><i class="text-small fw-bold">${data.notes ?? ""}</i>`;
-                },
-            },
+                    return `${data.departure_date}, ${data.departure_time.substring(0,5)} WIB`;
+                }
+            }, 
+            {
+                targets: i++,
+                data: null,
+                render: function(data, type, full, meta) {
+                    return `${data.return_date}, ${data.return_time.substring(0,5)} WIB`;
+                }
+            },      
             {
                 targets: i++,
                 data: null,
@@ -219,18 +207,12 @@ var ExAsUser = (function() {
         }
     }
     
-    var action_btn = function(data) {        
-        return '<div class="btn-group" role="group">' +            
-            (ExAs.Permission('UP') ? 
-                `<button type="button" class="btn btn-warning btn-icon waves-effect waves-light tombolView"><i class="mdi mdi-information-outline"></i></button>                 
-                 <button type="button" class="btn btn-success btn-icon waves-effect waves-light tombolApproved"><i class="la la-check-circle-o"></i></button>                 
-                 <button type="button" class="btn btn-danger btn-icon waves-effect waves-light tombolDenied"><i class="ri-close-circle-line"></i></button>`
-            : '') +
-            // (ExAs.Permission('DT') ?
-            //     `<button type="button" class="btn btn-dark btn-icon waves-effect waves-light tombolDelete"><i class="ri-delete-bin-5-line"></i></button>`
-            // : '') + 
-        
-        '</div>';
+    var action_btn = function(status) {
+        return `<div class="btn-group" role="group">
+                    <button type="button" class="btn btn-warning btn-icon waves-effect waves-light tombolView"><i class="mdi mdi-information-outline"></i></button>
+                    ${(ExAs.Permission('UP') ? `<button type="button" class="btn btn-warning btn-icon waves-effect waves-light tombolEdit"><i class="ri-edit-2-fill"></i></button>` : '')}
+                    ${(ExAs.Permission('DT') ? `<button type="button" class="btn btn-danger btn-icon waves-effect waves-light tombolDelete"><i class="ri-delete-bin-5-line"></i></button>` : '')}
+                </div>`;
     }
 
     /**
@@ -241,6 +223,8 @@ var ExAsUser = (function() {
         tb.ajax.reload(null, false);
     }
 
+    
+
     /**
      * Transaction
      */
@@ -250,10 +234,8 @@ var ExAsUser = (function() {
         addTrigger();
         updateTrigger();
         updateClickTrigger();
+        seatClickTrigger();
         deleteTrigger();
-        approveTrigger();
-        approveVPTrigger();
-        deniedTrigger();
         statusClickTrigger();
         statusHoverTrigger();
         viewDataClickTrigger();
@@ -370,29 +352,66 @@ var ExAsUser = (function() {
     var updateClickTrigger = function() {
         $("table tbody").on("click", ".tombolEdit", function() {
             var drop = tb.row($(this).parents("tr")).data();
-            $('#edit_id_revaluation').val(drop.id_revaluation);                                    
-            $('#edit_asset_number').val(drop.asset_number);
-            $('#edit_rupiah').val(drop.rupiah);
-            $('#edit_dollar').val(drop.dollar);
-            $('#edit_year').val(drop.year);
+            location.href = `${e3nCeL0t}${MoDaD}${MAIN}edit?id_trip=${drop.id_trip}`;
+        });
+    }
 
-            ExAl.Modal.Show('#modalEdit');
+    var seatClickTrigger = function() {
+        $("table tbody").on("click", ".tombolSeat", function() {
+            var drop = tb.row($(this).parents("tr")).data();
+            location.href = `${e3nCeL0t}${MoDaD}${MAIN}seat?id_trip=${drop.id_trip}`;
         });
     }
 
     var viewDataClickTrigger = function() {
         $("table tbody").on("click", ".tombolView", function() {
-            var drop = tb.row($(this).parents("tr")).data();    
-                        
-            $('#type_schedule_bus').val(drop.type_bus);
-            $('#view_id_request').val(drop.id_request);
-            $('#view_departure').val(drop.departure);
-            $('#view_arrival').val(drop.arrival);
-            $('#view_departure_date').val(drop.departure_date);
-            $('#view_departure_time').val(drop.departure_time);  
-            $('#view_return_date').val(drop.return_date);
-            $('#view_return_time').val(drop.return_time);          
-            ExAl.Modal.Show('#modalView');
+            var drop = tb.row($(this).parents("tr")).data();         
+            ExAl.Modal.Show('#modalView');                      
+            $.ajax({
+                url: e3nCeL0t + MoDaD + MAIN + "detail",
+                method: "POST",
+                data: {
+                    id_request: drop.id_request,
+                    scrty: true
+                },
+                success: function(response) {
+                    if (ExAs.Utils.Json.valid(response)) {
+                        var resp = JSON.parse(response);
+
+                        $('#schedule_number').val(resp.data.schedule_number);
+                        $('#type_schedule_bus').val(resp.data.type_bus);
+                        $('#departure').val(resp.data.departure);
+                        $('#arrival').val(resp.data.arrival);
+                        $('#departure_day').val(resp.data.departure_day);
+                        $('#departure_date').val(resp.data.departure_date);
+                        $('#departure_time').val(resp.data.departure_time);  
+                        $('#return_day').val(resp.data.return_day);
+                        $('#return_date').val(resp.data.return_date);
+                        $('#return_time').val(resp.data.return_time);  
+                        var passengerList = resp.data.passenger;
+                        var cardHTML = '';
+                        passengerList.forEach((passenger, index) => {
+                            cardHTML += `<div class="col-lg-3 col-md-6 col sm-12 p-2">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    ${passenger.name_passenger}                                                     
+                                                </div>
+                                                <div class="card-body">
+                                                    <p>Usia ${passenger.age_passenger},</p>
+                                                    <p>Hubungan ${passenger.relation_passenger}</p>
+                                                    <p>No. Kursi ${passenger.seat_number != "" ? passenger.seat_number : "Belum ditentukan"}</p>
+                                                </div>                                                
+                                            </div>
+                                        </div>`;                                
+                        });
+
+                        $("#data-passenger").html(cardHTML);
+                    }
+                },
+                error: function(e) {
+                    console.log(e);
+                },
+            });
         });
     }
 
@@ -448,6 +467,7 @@ var ExAsUser = (function() {
     var deleteTrigger = function() {
         $("table tbody").on("click", ".tombolDelete", function() {
             var drop = tb.row($(this).parents("tr")).data();
+            console.log(drop);
             ExAl.Toast.Delete({}, function(result) {
                 if (result) {
                     $.ajax({
@@ -455,7 +475,7 @@ var ExAsUser = (function() {
                         method: "POST",
                         async: false,
                         data: {
-                            ticket_number: drop.ticket_number,
+                            id_trip: drop.id_trip,
                             scrty: true
                         },
                         success: function(response) {
@@ -474,166 +494,101 @@ var ExAsUser = (function() {
             })
         });
     }
+     
+
+    var monthSelected;
+    var weekSelected;
+
+    $('#week').on('change', function() {
+        weekSelected = this.value;
+        loadSchedule();
+
+    });
+
+    $('#month').on('change', function() {
+        monthSelected = this.value;
+        loadSchedule();
+    });    
     
-    var approveTrigger = function() {
-        $("table tbody").on("click", ".tombolApproved", function() {
-            var drop = tb.row($(this).parents("tr")).data();
-
-            Swal.fire({
-                showCancelButton: true,
-                title: "Yakin ingin Request ini diterima?",
-                confirmButtonText: "Ya, Saya yakin",
-                cancelButtonText: "Batal",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: e3nCeL0t + MoDaD + MAIN + "approve",
-                        method: "POST",
-                        async: false,
-                        data: {
-                            id_request: drop.id_request,
-                            scrty: true
-                        },
-                        success: function(response) {
-                            if (ExAs.Utils.Json.valid(response)) {
-                                var res = JSON.parse(response);
-                                if (res.status) {
-                                    loadData()
-                                    ExAl.Toast.Success(res.header, res.message);
-                                } else {
-                                    ExAl.Toast.Failed(res.header, res.message);
-                                }
-                            }
-                        }
-                    })                    
-                }
-            })
-        });
-    }
-
-    var approveVPTrigger = function() {
-        $("#modalView").on("click", ".tombolApprovedVP", function() {
-            $(".tombolApprovedVP").addClass("spinner spinner-white spinner-right disabled");
-
-            const payload = {
-                id_request : $('#view_id_request').val(),
-                departure : $('#view_departure').val(),
-                departure_date : $('#view_departure_date').val(),
-                departure_time : $('#view_departure_time').val(),
-                arrival : $('#view_arrival').val(),
-                return_date : $('#view_return_date').val(),
-                return_time : $('#view_return_time').val(),
-                trip_number : "INPUT-PARTY-SRO-2024",
-                reason_usage : "Party Of Section SRO", //default reason from notes requester
-                vehicle : "INPUT 1 Bus, Bus No. 08",     
-                scrty: true
-            }
-
-            // console.log('approve by vp', {payload});
-
-            $.ajax({
-                url: e3nCeL0t + MoDaD + MAIN_TRIP + "add",//store to party trip
-                method: "POST",
-                data: payload,
-                success: function(response) {
-                    if (ExAs.Utils.Json.valid(response)) {
-                        var res = JSON.parse(response);
-
-                        if (res.status) {
-                            ExAl.Toast.Success(res.header, res.message, function(result) {
-                                if (result.isDismissed) {
-                                    loadData();
-                                    ExAl.Modal.Close('#modalView', true);
-                                }
-                            });
-                        } else {
-                            ExAl.Toast.Failed(res.header, res.message);
-                        }
-                    }
-                },
-                error: function(e) {
-                    $(".tombolApprovedVP").removeClass("spinner spinner-white spinner-right disabled");
-                },
-            });
-        });        
-    }
-
-    var deniedTrigger = function(){
+    function loadSchedule () {
+        $("#schedule-available").html("<center>Loading...</center>");
+        if (monthSelected != null) {
+            var monthArray = monthSelected.split("-");
+            
+            if (monthArray[0] != null && monthArray[1] != null && weekSelected != null) {
+                $.ajax({
+                    url: e3nCeL0t + MoDaD + MAIN + "availableschedule",
+                    method: "POST",
+                    async: true,
+                    data: {
+                        scrty   : true,
+                        month   : monthArray[1],
+                        week    : weekSelected,
+                        year    : monthArray[0]
+                    },
+                    success: function(response) {
+                        var respon = ExAs.uXvbI(response)
+                        if (ExAs.Utils.Json.valid(respon)) {
+                            var res = JSON.parse(respon);
+                            console.log(res);
+                            var no = 1;
+                            var newLement = "";
         
-        $("table tbody").on("click", ".tombolDenied", function() {
-            var drop = tb.row($(this).parents("tr")).data();
-            Swal.fire({
-                title: "Yakin ingin Request ini ditolak?",
-                input: "text",
-                inputAttributes: {
-                  autocapitalize: "off"
-                },
-                showCancelButton: true,
-                confirmButtonText: "Ya, Saya yakin",
-                showLoaderOnConfirm: true,
-                preConfirm: async (message) => {
-                    $.ajax({
-                        url: e3nCeL0t + MoDaD + MAIN + "denied",
-                        method: "POST",
-                        async: false,
-                        data: {
-                            id_request: drop.id_request,
-                            notes: message,
-                            scrty: true
-                        },
-                        success: function(response) {
-                            if (ExAs.Utils.Json.valid(response)) {
-                                var res = JSON.parse(response);
-                                if (res.status) {
-                                    loadData()
-                                    ExAl.Toast.Success(res.header, res.message);
-                                } else {
-                                    ExAl.Toast.Failed(res.header, res.message);
-                                }
+                            if (res.success) {
+                                (res.data).forEach(element => {
+                                    element.number = no++;
+                                    newLement += `<div class="col-lg-4">
+                                                    <div class="card">
+                                                        <div class="row no-gutters">
+                                                            <div class="col">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title">
+                                                                        ${element.departure_day}
+                                                                        <div class="badge ${element.type_schedule_bus == "WEEKEND" ? "bg-secondary" : "bg-primary"}">
+                                                                        ${element.type_schedule_bus}</div>
+                                                                    </h5>
+                                                                    <p class="card-text"><small class="text-muted">${element.departure_date}</small></p>
+                                                                       
+                                                                    <a href="${e3nCeL0t}${MoDaD}${MAIN}add?schedule_number=${element.schedule_number}&departure_date=${element.departure_date}" 
+                                                                        class="btn btn-primary btn-sm" role="button" type="button">Pilih</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>`;
+                                });
+        
+                                setTimeout(() => {
+                                    $("#schedule-available").html(newLement);
+                                }, 500);                                
+                            } else {
+                                setTimeout(() => {
+                                    $("#schedule-available").html("<center>Data tidak ditemukan</center>");
+                                }, 500);
                             }
                         }
-                    })
-                },
-                allowOutsideClick: () => !Swal.isLoading()
-              });
-        });
-    }       
-    
-    var loadSeksi = function () {
-        $.ajax({
-            url: e3nCeL0t + MoDaD + MAIN_SEKSI + "seksi",
-            method: "POST",
-            async: false,
-            data: {
-                scrty: true
-            },
-            success: function (response) {
-                var respon = ExAs.uXvbI(response)
-                if (ExAs.Utils.Json.valid(respon)) {
-                    var res = JSON.parse(respon)
-                    var select = "";
-                    if (res.success) {
-                        select += "<option></option>";
-                        $.each(res.data, function (index, item) {
-                            select += '<option value=' + item.id_seksi + '>' + item.alias_seksi + ' - ' + item.nm_seksi + '</option>';
-                        })
-                        $('#seksi').append(select);
-                        // $('#seksi_edit').append(select);
+        
+                        // setTimeout(() => {
+                        //     $("#schedule-available").html("Data tidak ditemukan");
+                        // }, 500);
                     }
-                }
+                });
+            } else {
+                $("#schedule-available").html("<center>Harap Pilih Periode Jadwal Keberangkatan lebih dulu</center>");
             }
-        })
-    }
+        }
+
+    };
+    
 
     return {
         run: function() {
             search();
-            loadSeksi();
             Transaction();
+            $( "#year" ).datepicker({dateFormat: 'yy'});
         },
         refresh: function() { loadData() }
     }
-    
 })();
 
 ExAs.Dom(ExAsUser.run())
